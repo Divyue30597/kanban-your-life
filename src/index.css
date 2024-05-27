@@ -1,0 +1,181 @@
+:root {
+  font-size: 62.5%;
+
+  --primary-color: #5356ff;
+  --secondary-color: #a9a9a9;
+  --warning-color: #e8984a;
+  --warn-color: #f1d15f;
+  --danger-color: #f15c5c;
+  --success-color: #66de93;
+  --info-color: #867ae9;
+
+  --border-color: #000000;
+  --input-border-radius: 0.4rem;
+
+  --border-radius: 0.8rem;
+
+  /* BADGE COLORS */
+  --badge-primary-color: #ffa500;
+  --badge-primary-bg-color: #ffece1;
+  --badge-secondary-color: #2c62b4;
+  --badge-secondary-bg-color: #e1f6ff;
+  --badge-tertiary-color: #ff00b8;
+  --badge-tertiary-bg-color: #fbe6fc;
+  --badge-quad-color: #188544;
+  --badge-quad-bg-color: #cdf4dd;
+  --badge-cinq-color: #268fb0;
+  --badge-cinq-bg-color: #d9f4f8;
+  --badge-six-color: #b02626;
+  --badge-six-bg-color: #f8d9d9;
+  --badge-sept-color: #8b31b5;
+  --badge-sept-bg-color: #ead9f8;
+
+  --font-size: clamp(1.4rem, 1dvw + 0.1rem, 1.6rem);
+  --xs-font-size: clamp(1.2rem, 1dvw + 0.1rem, 1.4rem);
+  --icon-size: clamp(1.4rem, 1dvw + 0.1rem, 1.6rem);
+}
+
+@font-face {
+  font-family: "DMSansBlack";
+  src: url("/styles/fonts/DMSans-Black.ttf") format("truetype");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "DMSansBlackItalic";
+  src: url("/styles/fonts/DMSans-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "DMSansExtraBold";
+  src: url("/styles/fonts/DMSans-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "DMSansExtraBoldItalic";
+  src: url("/styles/fonts/DMSans-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "DMSansBold";
+  src: url("/styles/fonts/DMSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "DMSansBoldItalic";
+  src: url("/styles/fonts/DMSans-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "DMSansSemiBold";
+  src: url("/styles/fonts/DMSans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "DMSansSemiBoldItalic";
+  src: url("/styles/fonts/DMSans-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "DMSansMedium";
+  src: url("/styles/fonts/DMSans-Medium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "DMSansMediumItalic";
+  src: url("/styles/fonts/DMSans-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "DMSansRegular";
+  src: url("/styles/fonts/DMSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "DMSansRegularItalic";
+  src: url("/styles/fonts/DMSans-Italic.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "DMSansLight";
+  src: url("/styles/fonts/DMSans-Light.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "DMSansLightItalic";
+  src: url("/styles/fonts/DMSans-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "DMSansExtraLight";
+  src: url("/styles/fonts/DMSans-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "DMSansExtraLightItalic";
+  src: url("/styles/fonts/DMSans-ExtraLightItalic.ttf") format("truetype");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "DMSansThin";
+  src: url("/styles/fonts/DMSans-Thin.ttf") format("truetype");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "DMSansThinItalic";
+  src: url("/styles/fonts/DMSans-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "DMSans";
+}
+
+html,
+body {
+  max-width: 100dvw;
+  overflow-x: hidden;
+}
+
+.flex_col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex_row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex_center {
+  align-items: center;
+}
+
+.space_between {
+  justify-content: space-between;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+} */
