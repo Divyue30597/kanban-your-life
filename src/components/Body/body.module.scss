@@ -1,0 +1,43 @@
+.body {
+  padding: 1.2rem;
+  border: 0.2rem solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: #fff;
+  height: calc(100dvh - 8.6rem);
+
+  & > h1 {
+    text-align: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+
+    .column {
+      & > h2 {
+        font-size: 1.8rem;
+        text-align: center;
+        margin-block: 0.8rem;
+      }
+
+      height: calc(100dvh - 15.2rem);
+      border-radius: var(--border-radius);
+    }
+
+    .btn {
+      padding-block: 4rem;
+      border: 0.2rem solid var(--success-color);
+      font-size: 1.6rem;
+      background-color: #cdf4dd;
+      transition: all 350ms;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: #fff;
+      }
+    }
+  }
+}
