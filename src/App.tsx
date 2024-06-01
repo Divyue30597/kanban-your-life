@@ -1,11 +1,18 @@
-import "./App.css";
+import styles from "./app.module.scss";
 import Container from "@/components/Container/container";
+import Navbar from "./components/Navbar/navbar";
+import Sidebar from "./components/Sidebar/sidebar";
 
 function App() {
   return (
-    <Container>
-      <h1 className="h1">Children</h1>
-    </Container>
+    <>
+      <Navbar />
+      <Container className={styles.container}>
+        <Sidebar />
+        <div>body</div>
+      </Container>
+      <div>footer</div>
+    </>
   );
 }
 

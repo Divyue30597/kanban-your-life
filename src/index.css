@@ -96,7 +96,7 @@
 }
 
 @font-face {
-  font-family: "DMSansRegular";
+  font-family: "DMSans";
   src: url("/styles/fonts/DMSans-Regular.ttf") format("truetype");
   font-weight: 400;
 }
