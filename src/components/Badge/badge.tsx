@@ -1,4 +1,4 @@
-import styles from "@/app/ui/components/Badge/badge.module.scss";
+import styles from "./badge.module.scss";
 
 export default function Badge({ badge }: { badge: string }) {
   return (

@@ -12,7 +12,14 @@ function App() {
         <Sidebar />
         <Body />
       </Container>
-      <div>footer</div>
+      {/* <div className={styles.footer}>
+        <p>
+          Made with 💖 by{" "}
+          <a target="_blank" href="https://github.com/Divyue30597">
+            Divyue
+          </a>
+        </p>
+      </div> */}
     </>
   );
 }

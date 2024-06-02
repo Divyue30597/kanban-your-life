@@ -1,8 +1,33 @@
+$colors: (
+  var(--badge-primary-color),
+  var(--badge-secondary-color),
+  var(--badge-tertiary-color),
+  var(--badge-quad-color),
+  var(--badge-cinq-color),
+  var(--badge-six-color),
+  var(--badge-sept-color)
+);
+
+$background-colors: (
+  var(--badge-primary-bg-color),
+  var(--badge-secondary-bg-color),
+  var(--badge-tertiary-bg-color),
+  var(--badge-quad-bg-color),
+  var(--badge-cinq-bg-color),
+  var(--badge-six-bg-color),
+  var(--badge-sept-bg-color)
+);
+
+$colors-length: length($colors);
+$random-index: random($colors-length);
+$random-color: nth($colors, $random-index);
+$random-bg-color: nth($background-colors, $random-index);
+
 .badge {
   display: inline-block;
   border-radius: 0.4rem;
   padding: 0.4rem 0.8rem;
   font-size: var(--font-size);
-  color: var(--badge-primary-color);
-  background-color: var(--badge-primary-bg-color);
+  color: $random-color;
+  background-color: $random-bg-color;
 }

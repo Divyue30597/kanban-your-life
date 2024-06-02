@@ -1,0 +1,63 @@
+.card {
+  border: 0.2rem solid #e3e3e3;
+  border-radius: var(--border-radius);
+  background-color: #fff;
+  padding: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.badges {
+  margin-bottom: 1.2rem;
+
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.content {
+  & > h2 {
+    font-size: 2.4rem;
+  }
+
+  & > p {
+    font-size: 1.6rem;
+    color: #828282;
+  }
+}
+
+.notes {
+  margin-top: 1.2rem;
+
+  label {
+    font-size: 1.4rem;
+    font-family: "DMSansSemiBold";
+    color: #828282;
+  }
+
+  textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    outline: none;
+    font-size: 1.6rem;
+    opacity: 1;
+  }
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.footer {
+  & > img {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  margin-top: 0.8rem;
+  font-size: 1.4rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
