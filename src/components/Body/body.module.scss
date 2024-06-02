@@ -20,9 +20,12 @@
       transition: all 350ms;
 
       &:hover,
-      &:active,
       &:focus {
         background-color: #fff;
+      }
+
+      &:active {
+        box-shadow: 0rem 0rem 0rem 0.4rem #cdf4dd;
       }
     }
   }
