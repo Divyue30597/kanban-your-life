@@ -1,25 +1,74 @@
+import { FormEvent, useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+
 import plus_icon from "/styles/images/plus.svg";
+import dots_icon from "/styles/images/dots.svg";
+import delete_icon from "/styles/images/delete.svg";
+import edit_icon from "/styles/images/edit.svg";
+import save_icon from "/styles/images/save.svg";
+import close_icon from "/styles/images/close.svg";
+
+import styles from "./sidebar.module.scss";
 
 import Button from "../Button/button";
 import SVG from "../Svg/svg";
-import styles from "./sidebar.module.scss";
-import { FormEvent, useState } from "react";
-import { boards, createBoards } from "@/features/board/boardsSlice";
+import {
+  board,
+  createBoards,
+  deleteBoard,
+  updateBoard,
+} from "@/features/board/boardsSlice";
 import { useAppDispatch, useAppSelector } from "@/store/storeHooks";
-import { Link, NavLink } from "react-router-dom";
+import Dropdown from "../Dropdown/dropdown";
 
 export default function Sidebar() {
-  const [isActive, setIsActive] = useState(true);
-  const [boardName, setBoardName] = useState({ name: "" });
+  const [isActive, setIsActive] = useState(false);
+  const [boardName, setBoardName] = useState({ name: "", error: "" });
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (isActive) {
+      inputRef.current?.focus();
+    }
+  }, [isActive]);
 
   const dispatch = useAppDispatch();
   const selector = useAppSelector((state) => state.boards);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    dispatch(createBoards(boardName.name));
+
+    if (!boardName.name.length) {
+      return setBoardName({ name: "", error: "Please enter a board name" });
+    }
+
+    const payload = {
+      id: uuidv4(),
+      name: boardName.name,
+      link: boardName.name.toLowerCase().split(" ").join("-"),
+    };
+
+    dispatch(createBoards(payload));
     setIsActive(false);
-    setBoardName({ name: "" });
+    setBoardName({ name: "", error: "" });
+  };
+
+  const handleDelete = (id: string) => {
+    dispatch(deleteBoard(id));
+  };
+
+  const handleEdit = (id: string, name: string) => {
+    if (!name.length) {
+      return setBoardName({
+        name: "",
+        error: "Please enter a board name",
+      });
+    }
+    dispatch(updateBoard({ id, name }));
+    navigate(`/${name.toLowerCase().split(" ").join("-")}`);
   };
 
   return (
@@ -27,22 +76,73 @@ export default function Sidebar() {
       <div>
         <h1>Boards</h1>
         <ul className={styles.boards_list}>
-          {selector.map((board: boards) => (
+          {selector.boards.map((board: board) => (
             <li key={board.link}>
-              <Link to={board.link}>{board.name}</Link>
+              <Link
+                to={board.link}
+                className={`${
+                  pathname.split("/")[1] === board.link ? styles.active : ""
+                }`}
+              >
+                <span>{board.name}</span>
+              </Link>
+
+              <Dropdown
+                className={styles.dropdown}
+                buttonInternal={<SVG src={dots_icon} alt="Edit Board" />}
+              >
+                <div className={styles.dropdown_settings}>
+                  <input
+                    type="text"
+                    placeholder="Enter new name..."
+                    value={boardName.name}
+                    onChange={(e) => {
+                      setBoardName({
+                        error: "",
+                        name: e.target.value,
+                      });
+                    }}
+                  />
+                  <div className={styles.dropdown_buttons}>
+                    <Button
+                      className={styles.edit_button}
+                      type="button"
+                      onClick={() => handleEdit(board.id, boardName.name)}
+                    >
+                      <SVG src={edit_icon} alt="Edit" />
+                    </Button>
+                    <Button
+                      className={styles.delete_button}
+                      type="button"
+                      onClick={() => handleDelete(board.id)}
+                    >
+                      <SVG src={delete_icon} alt="Delete" />
+                    </Button>
+                  </div>
+                </div>
+              </Dropdown>
             </li>
           ))}
         </ul>
         {isActive && (
           <form onSubmit={handleSubmit} className={styles.addboards}>
-            <input
-              className={styles.input}
-              type="text"
-              value={boardName.name}
-              onChange={(e) => setBoardName({ name: e.target.value })}
-              placeholder="Add Board..."
-            />
-            <Button type="submit">Save</Button>
+            <div className={styles.input}>
+              <input
+                ref={inputRef}
+                className={styles.input}
+                type="text"
+                value={boardName.name}
+                onChange={(e) =>
+                  setBoardName({ name: e.target.value, error: "" })
+                }
+                placeholder="Add Board..."
+              />
+              <p>{boardName.error}</p>
+            </div>
+            <Button type="submit">
+              <SVG src={save_icon} alt="Save" />
+              <span>Save</span>
+            </Button>
           </form>
         )}
       </div>
@@ -53,7 +153,10 @@ export default function Sidebar() {
             <span>Add Boards</span>
           </>
         ) : (
-          <span>Close</span>
+          <>
+            <SVG src={close_icon} alt="Close" />
+            <span>Close</span>
+          </>
         )}
       </Button>
     </aside>

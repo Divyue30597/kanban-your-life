@@ -1,0 +1,26 @@
+.dropdown {
+  & > button {
+    width: 1.4rem;
+    height: 100%;
+    padding: 0.2rem;
+    gap: 0;
+    background-color: #f0f0f0;
+
+    & > img {
+      margin: 0 !important;
+    }
+  }
+}
+
+.dropdown_content {
+  position: absolute;
+  font-size: 1.4rem;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  padding: 1.2rem;
+  margin-top: 0.8rem;
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.2);
+}
