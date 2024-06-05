@@ -1,0 +1,40 @@
+.modal_body {
+  display: none;
+}
+
+.modal_body_active {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2.4rem;
+  background-color: #ffffff;
+  border-radius: var(--border-radius);
+  font-size: 1.6rem;
+  z-index: 9;
+  box-shadow: 0rem 0rem 0rem 100rem #00000050;
+  width: 40rem;
+
+  display: block;
+}
+
+.modal_heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+
+  margin-bottom: 1.2rem;
+
+  .modal_close {
+    width: 2.4rem;
+
+    & > img {
+      margin: 0rem !important;
+    }
+  }
+}
+
+hr {
+  margin-bottom: 1.2rem;
+}

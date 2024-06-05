@@ -4,6 +4,8 @@ import Button from "../Button/button";
 import SVG from "../Svg/svg";
 import styles from "./body.module.scss";
 import Card from "../Card/card";
+import Modal from "../Modal/modal";
+import CardForm from "../CardForm/cardForm";
 
 export default function Body() {
   const style = {
@@ -28,8 +30,13 @@ export default function Body() {
           <Card />
           <Card />
           <Card />
+          <Modal>
+            <Modal.Button>Add Card</Modal.Button>
+            <Modal.Body heading="Add Card">
+              <CardForm />
+            </Modal.Body>
+          </Modal>
         </div>
-        
       </div>
     </div>
   );

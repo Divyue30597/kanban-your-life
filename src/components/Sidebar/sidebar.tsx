@@ -115,6 +115,7 @@ export default function Sidebar() {
                       className={styles.delete_button}
                       type="button"
                       onClick={() => handleDelete(board.id)}
+                      disabled={pathname.split("/")[1] === board.link}
                     >
                       <SVG src={delete_icon} alt="Delete" />
                     </Button>
