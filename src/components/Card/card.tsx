@@ -1,4 +1,4 @@
-import { ReactNode, createContext } from "react";
+import { ReactNode, createContext, useState } from "react";
 
 import calendar from "/styles/images/calendar.svg";
 import Badge from "../Badge/badge";
@@ -17,41 +17,55 @@ function Card({ children }: { children: ReactNode }) {
   );
 }
 
-function CardTag() {
+function CardTag({ tagName }: { tagName: string }) {
   return (
     <div className={styles.badges}>
       {Array.from({ length: 2 }).map((_, index) => (
-        <Badge key={index} badge="In Progress" />
+        <Badge key={index} badge={tagName} />
       ))}
     </div>
   );
 }
 
-function CardHeader() {
+function CardHeader({
+  heading,
+  description,
+}: {
+  heading: string;
+  description: string;
+}) {
   return (
     <div className={styles.content}>
-      <h2>Card</h2>
-      <p>Description</p>
+      <h2>{heading}</h2>
+      <p>{description}</p>
     </div>
   );
 }
 
-function CardNotes() {
+function CardNotes({ notes }: { notes: string }) {
+  const [notesValue, setNotesValue] = useState(notes);
   return (
     <div className={styles.notes}>
       <label htmlFor="notes">Notes:</label>
-      <textarea name="notes" rows={4} id="notes" placeholder="Type here..." />
+      <textarea
+        name="notes"
+        rows={4}
+        id="notes"
+        value={notesValue}
+        onChange={(e) => {
+          setNotesValue(e.target.value);
+        }}
+        placeholder="Type here..."
+      />
     </div>
   );
 }
 
-function CardFooter() {
+function CardFooter({ date }: { date: string }) {
   return (
     <div className={styles.footer}>
-      <p>
-        <SVG src={calendar} alt="Calendar" />
-        Sep 24
-      </p>
+      <SVG src={calendar} alt="Calendar" />
+      <p>{date}</p>
     </div>
   );
 }

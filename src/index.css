@@ -2,13 +2,28 @@
   font-size: 62.5%;
 
   --primary-color: #6f72ff;
+  --primary-color-50: #b7b9ff;
+
   --select-color: #c5c7ff;
+  --select-color-50: #e2e3ff;
+
   --secondary-color: #a9a9a9;
+  --secondary-color-50: #d4d4d4;
+
   --warning-color: #e8984a;
+  --warning-color: #f4cca5;
+
   --warn-color: #f1d15f;
+  --warn-color-50: #f8e8af;
+
   --danger-color: #f15c5c;
+  --danger-color-50: #f8aeae;
+
   --success-color: #66de93;
+  --success-color-50: #b3efc9;
+
   --info-color: #867ae9;
+  --info-color-50: #c3bdf4;
 
   --border-color: #000000;
   --input-border-radius: 0.4rem;

@@ -54,6 +54,7 @@ export default function Sidebar() {
     dispatch(createBoards(payload));
     setIsActive(false);
     setBoardName({ name: "", error: "" });
+    navigate("/" + payload.id);
   };
 
   const handleDelete = (id: string) => {
@@ -79,9 +80,9 @@ export default function Sidebar() {
           {selector.boards.map((board: board) => (
             <li key={board.link}>
               <Link
-                to={board.link}
+                to={board.id}
                 className={`${
-                  pathname.split("/")[1] === board.link ? styles.active : ""
+                  pathname.split("/")[1] === board.id ? styles.active : ""
                 }`}
               >
                 <span>{board.name}</span>

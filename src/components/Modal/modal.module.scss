@@ -1,21 +1,35 @@
 .modal_body {
   display: none;
+  animation: hide_modal 350ms ease-in-out forwards;
 }
 
 .modal_body_active {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 2.4rem;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: var(--border-radius);
   font-size: 1.6rem;
   z-index: 9;
-  box-shadow: 0rem 0rem 0rem 100rem #00000050;
   width: 40rem;
+  animation: display_modal 350ms ease-in-out forwards;
 
   display: block;
+}
+
+.background_div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: display_modal 350ms ease-in-out forwards;
+
+  z-index: 8;
+  height: 100dvh;
+  width: 100dvw;
+  background-color: #0005;
 }
 
 .modal_heading {
@@ -37,4 +51,22 @@
 
 hr {
   margin-bottom: 1.2rem;
+}
+
+@keyframes display_modal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide_modal {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

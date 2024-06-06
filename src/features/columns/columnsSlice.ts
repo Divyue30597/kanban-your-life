@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 export type column = {
   id: string;
   name: string;
+  boardId: string;
 };
 
 const initialState = { columns: [] };
@@ -14,7 +15,7 @@ const columnsSlice = createSlice({
     : initialState,
   reducers: {
     createColumns: (state, action: PayloadAction<column>) => {
-      state.push(action.payload);
+      state.columns.push(action.payload);
       localStorage.setItem("columns", JSON.stringify(state));
     },
   },

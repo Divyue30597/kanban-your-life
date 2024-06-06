@@ -2,13 +2,13 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type card = {
   id: string;
-  status: string | string[];
   heading: string;
   description: string;
   notes: string;
-  date: Date;
-  tag: string;
-  board: string;
+  date: string;
+  // tag: string;
+  columnId: string;
+  boardId: string;
 };
 
 const initialState = {

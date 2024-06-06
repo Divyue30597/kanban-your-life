@@ -1,35 +1,63 @@
 import { v4 as uuid } from "uuid";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import Button from "../Button/button";
 import TextInput from "../Input/input";
 import { useAppDispatch, useAppSelector } from "@/store/storeHooks";
 import { createCards } from "@/features/cards/cardsSlice";
+import { useLocation } from "react-router-dom";
 
-export default function CardForm() {
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+interface CardFormProps {
+  colId: string;
+}
+
+export default function CardForm({ colId }: CardFormProps) {
   const [formState, setFormState] = useState({
-    id: uuid(),
     heading: "",
     description: "",
     notes: "",
     date: "",
   });
 
-  const colSelector = useAppSelector((state) => state.columns);
-  const boardSelector = useAppSelector((state) => state.boards);
   const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    const { date } = formState;
+    const newDate = new Date(date);
+    const dateTime = newDate.getDate();
+    const month = MONTHS[newDate.getMonth()];
+
     const payload = {
+      id: uuid(),
       ...formState,
-      //
+      columnId: colId,
+      boardId: pathname.split("/")[1],
+      date: `${dateTime} ${month}`,
     };
 
-    dispatch(createCards());
+    dispatch(createCards(payload));
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <TextInput
         type="text"
         label="Heading"
@@ -72,7 +100,6 @@ export default function CardForm() {
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setFormState({ ...formState, date: e.target.value })
         }
-        placeholder={Date.now().toString()}
       />
       <Button type="submit">Submit</Button>
     </form>

@@ -1,4 +1,4 @@
-import { HTMLProps, useState } from "react";
+import { HTMLProps, useEffect, useRef, useState } from "react";
 
 import styles from "./input.module.scss";
 
