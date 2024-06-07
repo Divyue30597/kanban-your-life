@@ -26,14 +26,11 @@ const boardsSlice = createSlice({
           return {
             ...board,
             name: action.payload.name,
-            link: action.payload.name.toLowerCase().split(" ").join("-"),
           };
         }
-
         return board;
       });
 
-      console.log(state.boards);
       localStorage.setItem("boards", JSON.stringify(state));
     },
     deleteBoard: (state, action: PayloadAction<string>) => {

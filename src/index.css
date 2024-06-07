@@ -206,6 +206,11 @@ body {
   border-radius: var(--border-radius);
 }
 
+.error_message {
+  color: var(--danger-color);
+  font-size: 1.4rem;
+}
+
 hr {
   border: 0.1rem solid #e2e2e2;
   margin-bottom: 1.2rem;

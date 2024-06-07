@@ -2,8 +2,6 @@ import { v4 as uuid } from "uuid";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import plus_icon from "/styles/images/plus.svg";
-
 import styles from "./cardForm.module.scss";
 
 import { useAppDispatch } from "@/store/storeHooks";
@@ -85,7 +83,7 @@ export default function AddCardForm({ colId }: CardFormProps) {
           setFormState({ ...formState, heading: e.target.value })
         }
         placeholder="Eg. Look for new recipe"
-        errorMessage="🚫 Heading cannot empty!!"
+        errorMessage="🚫 Heading cannot be empty."
       />
       <TextInput
         required
@@ -97,7 +95,7 @@ export default function AddCardForm({ colId }: CardFormProps) {
           setFormState({ ...formState, description: e.target.value })
         }
         placeholder="Eg. Found this on the internet"
-        errorMessage="🚫 Description cannot empty!!"
+        errorMessage="🚫 Description cannot be empty."
       />
       <TextInput
         required
@@ -106,7 +104,7 @@ export default function AddCardForm({ colId }: CardFormProps) {
         labelId="notes"
         value={formState.notes}
         placeholder="Enter Notes..."
-        errorMessage="🚫 Notes cannot empty!!"
+        errorMessage="🚫 Notes cannot be empty."
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setFormState({
             ...formState,
@@ -147,7 +145,7 @@ export default function AddCardForm({ colId }: CardFormProps) {
         labelId="date"
         min={Date.now().toString()}
         value={formState.date}
-        errorMessage="🚫 Date cannot empty!!"
+        errorMessage="🚫 Date cannot be empty."
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setFormState({ ...formState, date: e.target.value })
         }

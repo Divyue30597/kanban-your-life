@@ -13,12 +13,13 @@ import {
   column,
   createColumns,
   deleteColumns,
+  updateColumns,
 } from "@/features/columns/columnsSlice";
 import { card, deleteColumnsWithCards } from "@/features/cards/cardsSlice";
 import AddCardForm from "../CardForm/cardForm";
 
 export default function Body() {
-  const [colName, setColName] = useState("");
+  const [colName, setColName] = useState({ value: "", error: "" });
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const colSelector = useAppSelector((state) => state.columns);
@@ -31,7 +32,7 @@ export default function Body() {
   const handleSubmit = () => {
     const newColumn = {
       id: uuid(),
-      name: colName,
+      name: colName.value,
       boardId: pathname.split("/")[1],
     };
     dispatch(createColumns(newColumn));
@@ -40,6 +41,17 @@ export default function Body() {
   const handleDeleteColumn = (id: string) => {
     dispatch(deleteColumns(id));
     dispatch(deleteColumnsWithCards(id));
+  };
+
+  const handleEditColumn = (
+    id: string,
+    col: { value: string; error: string }
+  ) => {
+    if (!col.value) {
+      return setColName({ value: "", error: "🚫 Column name cannot be empty." });
+    }
+
+    dispatch(updateColumns({ id, name: col.value }));
   };
 
   return (
@@ -53,15 +65,16 @@ export default function Body() {
           <Modal.Body heading="Add Column">
             <form onSubmit={handleSubmit}>
               <TextInput
+                required
                 type="text"
                 labelId="add-column"
                 label="Add Column"
                 placeholder="Eg. Todo"
-                value={colName}
+                value={colName.value}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setColName(e.target.value)
+                  setColName({ ...colName, value: e.target.value })
                 }
-                errorMessage="🌋 Add Column cannot empty!!"
+                errorMessage="🚫 Add Column cannot be empty."
               />
               <Button type="submit">Save</Button>
             </form>
@@ -83,8 +96,36 @@ export default function Body() {
                       <Modal.Button className={styles.col_edit_btn}>
                         <EDIT />
                       </Modal.Button>
-                      <Modal.Body heading="Edit Column">
-                        This is edit section
+                      <Modal.Body
+                        className={styles.edit_col_body}
+                        heading="Edit Column"
+                      >
+                        <div className={`${styles.edit_col_input} flex_col`}>
+                          <label htmlFor="edit-column-name">
+                            Edit Column Name
+                          </label>
+                          <input
+                            id="edit-column-name"
+                            name="edit-column-name"
+                            type="text"
+                            required
+                            placeholder={col.name}
+                            value={colName.value}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                              setColName({
+                                error: "",
+                                value: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                        <p style={{marginBottom: '0.8rem'}} className="error_message">{colName.error}</p>
+                        <Button
+                          onClick={() => handleEditColumn(col.id, colName)}
+                          type="button"
+                        >
+                          Save
+                        </Button>
                       </Modal.Body>
                     </Modal>
                     <Modal>
@@ -96,8 +137,11 @@ export default function Body() {
                         heading="Delete Column"
                       >
                         <p>
-                          Are you sure you want to <strong>delete</strong> this
-                          column?
+                          Are you sure you want to{" "}
+                          <span style={{ fontFamily: "DMSansBold" }}>
+                            delete
+                          </span>{" "}
+                          this column?
                         </p>
                         <div className={`${styles.del_col_btns}`}>
                           <Button

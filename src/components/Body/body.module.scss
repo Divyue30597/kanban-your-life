@@ -141,6 +141,7 @@
       background-color: var(--success-color);
       border: 0.2rem solid var(--success-color);
       transition: all 350ms;
+      font-family: "DMSansBold";
 
       &:hover,
       &:focus {
@@ -150,6 +151,51 @@
       &:active {
         box-shadow: 0rem 0rem 0rem 0.4rem var(--success-color-50);
       }
+    }
+  }
+}
+
+.edit_col_body {
+  .edit_col_input {
+    margin-bottom: 0.4rem;
+
+    & > label {
+      font-size: 1.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    & > input {
+      font-size: 1.6rem;
+      padding: 0.8rem;
+      background-color: #f0f0f0;
+      border: none;
+      border-bottom: 0.2rem solid #000;
+      outline: none;
+      width: 100%;
+
+      &:invalid {
+        border-bottom-color: var(--danger-color);
+      }
+
+      &:valid {
+        border-bottom-color: var(--success-color);
+      }
+    }
+  }
+
+  & > button {
+    background-color: var(--success-color);
+    border: 0.2rem solid var(--success-color);
+    transition: all 350ms;
+    font-family: "DMSansBold";
+
+    &:hover,
+    &:focus {
+      background-color: var(--success-color-50);
+    }
+
+    &:active {
+      box-shadow: 0rem 0rem 0rem 0.4rem var(--success-color-50);
     }
   }
 }

@@ -57,7 +57,7 @@ export default function Sidebar() {
     if (!name.length) {
       return setBoardName({
         name: "",
-        error: "Please enter a board name",
+        error: "🚫 Please enter a board name",
       });
     }
     dispatch(updateBoard({ id, name }));
@@ -111,6 +111,9 @@ export default function Sidebar() {
                     </Button>
                   </div>
                 </div>
+                <p style={{ marginTop: "0.4rem" }} className="error_message">
+                  {boardName.error}
+                </p>
               </Dropdown>
             </li>
           ))}

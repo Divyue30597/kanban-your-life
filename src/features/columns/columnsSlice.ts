@@ -25,10 +25,16 @@ const columnsSlice = createSlice({
       );
       // localStorage.setItem("columns", JSON.stringify(state));
     },
-    updateColumns: (state, action: PayloadAction<column>) => {
+    updateColumns: (
+      state,
+      action: PayloadAction<{ id: string; name: string }>
+    ) => {
       state.columns = state.columns.map((column: column) => {
         if (column.id === action.payload.id) {
-          return action.payload;
+          return {
+            ...column,
+            name: action.payload.name,
+          };
         }
         return column;
       });
