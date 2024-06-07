@@ -14,18 +14,19 @@
   }
 
   .btn {
-    background-color: #b7b9ff;
+    background-color: var(--primary-color);
     border: 0.2rem solid var(--primary-color);
     transition: all 350ms;
     outline: none;
+    width: 100%;
 
     &:hover,
     &:focus {
-      background-color: #fff;
+      background-color: var(--primary-color-50);
     }
 
     &:active {
-      box-shadow: 0rem 0rem 0rem 0.4rem #b7b9ff;
+      box-shadow: 0rem 0rem 0rem 0.4rem var(--primary-color-50);
     }
   }
 

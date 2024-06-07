@@ -3,7 +3,6 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 export type board = {
   id: string;
   name: string;
-  link: string;
 };
 
 const initialState = { boards: [] };

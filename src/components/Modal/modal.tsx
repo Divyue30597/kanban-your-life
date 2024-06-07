@@ -3,7 +3,6 @@ import useModalContext from "./useModalContext";
 import Button from "../Button/button";
 
 import styles from "./modal.module.scss";
-import SVG from "../Svg/svg";
 
 interface ModalContext {
   isActive: boolean;
@@ -21,7 +20,12 @@ function Modal({ children }: { children: ReactNode }) {
 
   return (
     <ModalContext.Provider value={{ isActive, handleClick }}>
-      <div className={isActive ? styles.background_div : ""}></div>
+      <div
+        onClick={handleClick}
+        className={`${
+          isActive ? styles.background_div_active : styles.background_div_hide
+        } ${styles.background_div}`}
+      ></div>
       {children}
     </ModalContext.Provider>
   );
@@ -64,36 +68,34 @@ export function ModalBody({
   }, [isActive]);
 
   return (
-    <>
-      <div
-        {...props}
-        className={`${
-          isActive ? styles.modal_body_active : styles.modal_body
-        } ${className}`}
-        onKeyDown={(e) => {
-          if (e.key === "Escape") {
-            handleClick();
-          }
-        }}
-        ref={divRef}
-        tabIndex={0}
-      >
-        <div className={styles.modal_heading}>
-          <h1>{heading}</h1>
-          <div>
-            <Button
-              tabIndex={-1}
-              onClick={handleClick}
-              className={styles.modal_close}
-            >
-              <SVG src="/styles/images/close.svg" alt="Close" />
-            </Button>
-          </div>
+    <div
+      {...props}
+      className={`${
+        isActive ? styles.modal_body_active : styles.modal_body_hide
+      } ${styles.modal_body} ${className}`}
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          handleClick();
+        }
+      }}
+      ref={divRef}
+      tabIndex={0}
+    >
+      <div className={styles.modal_heading}>
+        <h1>{heading}</h1>
+        <div>
+          <Button
+            tabIndex={-1}
+            onClick={handleClick}
+            className={styles.modal_close}
+          >
+            ❌
+          </Button>
         </div>
-        <hr />
-        {children}
       </div>
-    </>
+      <hr />
+      {children}
+    </div>
   );
 }
 

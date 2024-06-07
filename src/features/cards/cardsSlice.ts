@@ -1,4 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { deleteColumns } from "../columns/columnsSlice";
+import { deleteBoard } from "../board/boardsSlice";
 
 export type card = {
   id: string;
@@ -6,6 +8,7 @@ export type card = {
   description: string;
   notes: string;
   date: string;
+  link: string[];
   // tag: string;
   columnId: string;
   boardId: string;
@@ -25,9 +28,32 @@ const cardsSlice = createSlice({
       state.cards.push(action.payload);
       localStorage.setItem("cards", JSON.stringify(state));
     },
+    deleteCards: (state, action: PayloadAction<string>) => {
+      state.cards = state.cards.filter(
+        (card: card) => card.id !== action.payload
+      );
+      // localStorage.setItem("cards", JSON.stringify(state));
+    },
+    deleteColumnsWithCards: (state, action: PayloadAction<string>) => {
+      state.cards = state.cards.filter(
+        (card: card) => card.columnId !== action.payload
+      );
+      // localStorage.setItem("cards", JSON.stringify(state));
+    },
+    deleteBoardWithCards: (state, action: PayloadAction<string>) => {
+      state.cards = state.cards.filter(
+        (card: card) => card.boardId !== action.payload
+      );
+      // localStorage.setItem("cards", JSON.stringify(state));
+    },
   },
 });
 
-export const { createCards } = cardsSlice.actions;
+export const {
+  createCards,
+  deleteCards,
+  deleteColumnsWithCards,
+  deleteBoardWithCards,
+} = cardsSlice.actions;
 
 export default cardsSlice.reducer;

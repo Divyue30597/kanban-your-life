@@ -18,9 +18,26 @@ const columnsSlice = createSlice({
       state.columns.push(action.payload);
       localStorage.setItem("columns", JSON.stringify(state));
     },
+
+    deleteColumns: (state, action: PayloadAction<string>) => {
+      state.columns = state.columns.filter(
+        (column: column) => column.id !== action.payload
+      );
+      // localStorage.setItem("columns", JSON.stringify(state));
+    },
+    updateColumns: (state, action: PayloadAction<column>) => {
+      state.columns = state.columns.map((column: column) => {
+        if (column.id === action.payload.id) {
+          return action.payload;
+        }
+        return column;
+      });
+      // localStorage.setItem("columns", JSON.stringify(state));
+    },
   },
 });
 
-export const { createColumns } = columnsSlice.actions;
+export const { createColumns, deleteColumns, updateColumns } =
+  columnsSlice.actions;
 
 export default columnsSlice.reducer;

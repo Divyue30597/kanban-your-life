@@ -1,9 +1,12 @@
 import { ReactNode, createContext, useState } from "react";
 
 import calendar from "/styles/images/calendar.svg";
+import link_icon from "/styles/images/link.svg";
+
 import Badge from "../Badge/badge";
-import SVG from "../Svg/svg";
 import styles from "./card.module.scss";
+import { Link } from "react-router-dom";
+import { CALENDAR, LINK } from "../Svg/svg";
 
 export const CardContext = createContext({});
 
@@ -64,8 +67,22 @@ function CardNotes({ notes }: { notes: string }) {
 function CardFooter({ date }: { date: string }) {
   return (
     <div className={styles.footer}>
-      <SVG src={calendar} alt="Calendar" />
+      <CALENDAR />
       <p>{date}</p>
+    </div>
+  );
+}
+
+function CardLink({ links }: { links: string[] }) {
+  return (
+    <div className={styles.card_link}>
+      {links.map((link, index) => {
+        return (
+          <Link key={link + index} to={link} target="_blank">
+            <LINK />
+          </Link>
+        );
+      })}
     </div>
   );
 }
@@ -73,6 +90,7 @@ function CardFooter({ date }: { date: string }) {
 Card.CardHeader = CardHeader;
 Card.CardTag = CardTag;
 Card.CardNotes = CardNotes;
+Card.CardLink = CardLink;
 Card.CardFooter = CardFooter;
 
 export default Card;

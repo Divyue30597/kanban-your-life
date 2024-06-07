@@ -1,8 +1,8 @@
 :root {
   font-size: 62.5%;
 
-  --primary-color: #6f72ff;
-  --primary-color-50: #b7b9ff;
+  --primary-color: #8c8eff;
+  --primary-color-50: #c6c7ff;
 
   --select-color: #c5c7ff;
   --select-color-50: #e2e3ff;
@@ -204,6 +204,11 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #c5c5c5;
   border-radius: var(--border-radius);
+}
+
+hr {
+  border: 0.1rem solid #e2e2e2;
+  margin-bottom: 1.2rem;
 }
 
 /* @media (prefers-color-scheme: dark) {

@@ -2,17 +2,10 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
-import plus_icon from "/styles/images/plus.svg";
-import dots_icon from "/styles/images/dots.svg";
-import delete_icon from "/styles/images/delete.svg";
-import edit_icon from "/styles/images/edit.svg";
-import save_icon from "/styles/images/save.svg";
-import close_icon from "/styles/images/close.svg";
-
+import { CLOSE, DELETE, DOTS, EDIT, PLUS, SAVE } from "../Svg/svg";
 import styles from "./sidebar.module.scss";
 
 import Button from "../Button/button";
-import SVG from "../Svg/svg";
 import {
   board,
   createBoards,
@@ -48,7 +41,6 @@ export default function Sidebar() {
     const payload = {
       id: uuidv4(),
       name: boardName.name,
-      link: boardName.name.toLowerCase().split(" ").join("-"),
     };
 
     dispatch(createBoards(payload));
@@ -69,7 +61,7 @@ export default function Sidebar() {
       });
     }
     dispatch(updateBoard({ id, name }));
-    navigate(`/${name.toLowerCase().split(" ").join("-")}`);
+    navigate("/" + id);
   };
 
   return (
@@ -78,7 +70,7 @@ export default function Sidebar() {
         <h1>Boards</h1>
         <ul className={styles.boards_list}>
           {selector.boards.map((board: board) => (
-            <li key={board.link}>
+            <li key={board.id}>
               <Link
                 to={board.id}
                 className={`${
@@ -88,10 +80,7 @@ export default function Sidebar() {
                 <span>{board.name}</span>
               </Link>
 
-              <Dropdown
-                className={styles.dropdown}
-                buttonInternal={<SVG src={dots_icon} alt="Edit Board" />}
-              >
+              <Dropdown className={styles.dropdown} buttonInternal={<DOTS />}>
                 <div className={styles.dropdown_settings}>
                   <input
                     type="text"
@@ -110,15 +99,15 @@ export default function Sidebar() {
                       type="button"
                       onClick={() => handleEdit(board.id, boardName.name)}
                     >
-                      <SVG src={edit_icon} alt="Edit" />
+                      <EDIT />
                     </Button>
                     <Button
                       className={styles.delete_button}
                       type="button"
                       onClick={() => handleDelete(board.id)}
-                      disabled={pathname.split("/")[1] === board.link}
+                      disabled={pathname.split("/")[1] === board.id}
                     >
-                      <SVG src={delete_icon} alt="Delete" />
+                      <DELETE />
                     </Button>
                   </div>
                 </div>
@@ -142,7 +131,7 @@ export default function Sidebar() {
               <p>{boardName.error}</p>
             </div>
             <Button type="submit">
-              <SVG src={save_icon} alt="Save" />
+              <SAVE />
               <span>Save</span>
             </Button>
           </form>
@@ -151,12 +140,12 @@ export default function Sidebar() {
       <Button className={styles.btn} onClick={() => setIsActive(!isActive)}>
         {!isActive ? (
           <>
-            <SVG src={plus_icon} alt="Add Boards" />
+            <PLUS />
             <span>Add Boards</span>
           </>
         ) : (
           <>
-            <SVG src={close_icon} alt="Close" />
+            <CLOSE />
             <span>Close</span>
           </>
         )}
