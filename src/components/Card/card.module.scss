@@ -7,8 +7,6 @@
 }
 
 .badges {
-  margin-bottom: 1.2rem;
-
   display: flex;
   gap: 1.2rem;
   flex-wrap: wrap;
@@ -51,18 +49,71 @@
 }
 
 .footer {
-  & > img {
-    height: 2rem;
-    width: 2rem;
-  }
-
   margin-top: 0.8rem;
   font-size: 1.4rem;
-  color: #828282;
 
-  display: flex;
-  align-items: center;
-  justify-content: end;
+  .modal_btns {
+    gap: 1.2rem;
+
+    .edit_btn {
+      background-color: var(--info-color);
+      padding: 0.8rem;
+      border: 0.2rem solid var(--info-color);
+      transition: all 350ms;
+
+      &:hover,
+      &:focus {
+        background-color: var(--info-color-50);
+      }
+
+      &:active {
+        box-shadow: 0rem 0rem 0rem 0.4rem var(--info-color-50);
+      }
+    }
+
+    .del_btn {
+      background-color: var(--danger-color);
+      padding: 0.8rem;
+      border: 0.2rem solid var(--danger-color);
+      transition: all 350ms;
+
+      &:hover,
+      &:focus {
+        background-color: var(--danger-color-50);
+      }
+
+      &:active {
+        box-shadow: 0rem 0rem 0rem 0.4rem var(--danger-color-50);
+      }
+    }
+
+    .del_modal_body {
+      & > p {
+        margin-bottom: 1.2rem;
+      }
+
+      .del_modal_btn {
+        background-color: var(--success-color);
+        border: 0.2rem solid var(--success-color);
+        transition: all 350ms;
+        font-family: "DMSansSemiBold";
+
+        &:hover,
+        &:focus {
+          background-color: var(--success-color-50);
+        }
+
+        &:active {
+          box-shadow: 0rem 0rem 0rem 0.4rem var(--success-color-50);
+        }
+      }
+    }
+  }
+
+  .date {
+    color: #828282;
+    gap: 0.4rem;
+  }
 }
 
 .card_link {

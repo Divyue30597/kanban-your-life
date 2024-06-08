@@ -84,7 +84,7 @@ export default function Sidebar() {
                 <div className={styles.dropdown_settings}>
                   <input
                     type="text"
-                    placeholder="Enter new name..."
+                    placeholder={board.name}
                     value={boardName.name}
                     onChange={(e) => {
                       setBoardName({

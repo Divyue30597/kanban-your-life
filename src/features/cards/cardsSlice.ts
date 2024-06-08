@@ -1,6 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { deleteColumns } from "../columns/columnsSlice";
-import { deleteBoard } from "../board/boardsSlice";
 
 export type card = {
   id: string;
@@ -28,7 +26,7 @@ const cardsSlice = createSlice({
       state.cards.push(action.payload);
       localStorage.setItem("cards", JSON.stringify(state));
     },
-    deleteCards: (state, action: PayloadAction<string>) => {
+    deleteCard: (state, action: PayloadAction<string>) => {
       state.cards = state.cards.filter(
         (card: card) => card.id !== action.payload
       );
@@ -46,14 +44,65 @@ const cardsSlice = createSlice({
       );
       // localStorage.setItem("cards", JSON.stringify(state));
     },
+    updateNotesByCardId: (
+      state,
+      action: PayloadAction<{ id: string; notes: string }>
+    ) => {
+      state.cards = state.cards.map((card: card) => {
+        if (card.id === action.payload.id) {
+          return {
+            ...card,
+            notes: action.payload.notes,
+          };
+        }
+        return card;
+      });
+      localStorage.setItem("cards", JSON.stringify(state));
+    },
+    updateCard: (
+      state,
+      action: PayloadAction<{ id: string; updatedCard: card }>
+    ) => {
+      state.card = state.cards.map((card: card) => {
+        if (card.id === action.payload.id) {
+          return {
+            ...card,
+            ...action.payload.updatedCard,
+          };
+        }
+        return card;
+      });
+
+      // localStorage.setItem("cards", JSON.stringify(state));
+    },
+
+    updateCardColumn: (
+      state,
+      action: PayloadAction<{ id: string; columnId: string }>
+    ) => {
+      state.cards = state.cards.map((card: card) => {
+        if (card.id === action.payload.id) {
+          return {
+            ...card,
+            columnId: action.payload.columnId,
+          };
+        }
+        return card;
+      });
+
+      // localStorage.setItem("cards", JSON.stringify(state));
+    },
   },
 });
 
 export const {
   createCards,
-  deleteCards,
+  deleteCard,
   deleteColumnsWithCards,
   deleteBoardWithCards,
+  updateNotesByCardId,
+  updateCard,
+  updateCardColumn,
 } = cardsSlice.actions;
 
 export default cardsSlice.reducer;

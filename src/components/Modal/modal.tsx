@@ -3,6 +3,7 @@ import useModalContext from "./useModalContext";
 import Button from "../Button/button";
 
 import styles from "./modal.module.scss";
+import { createPortal } from "react-dom";
 
 interface ModalContext {
   isActive: boolean;

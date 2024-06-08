@@ -134,6 +134,7 @@
   & > p {
     font-size: 1.8rem;
   }
+
   .del_col_btns {
     margin-top: 1.2rem;
 
@@ -187,10 +188,10 @@
     background-color: var(--success-color);
     border: 0.2rem solid var(--success-color);
     transition: all 350ms;
-    font-family: "DMSansBold";
+    font-family: "DMSansSemiBold";
+    font-size: 1.6rem;
 
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: var(--success-color-50);
     }
 

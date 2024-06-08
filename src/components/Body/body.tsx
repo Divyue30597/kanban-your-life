@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, DragEvent, DragEventHandler, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 
@@ -15,7 +15,13 @@ import {
   deleteColumns,
   updateColumns,
 } from "@/features/columns/columnsSlice";
-import { card, deleteColumnsWithCards } from "@/features/cards/cardsSlice";
+import {
+  card,
+  deleteCard,
+  deleteColumnsWithCards,
+  updateCard,
+  updateCardColumn,
+} from "@/features/cards/cardsSlice";
 import AddCardForm from "../CardForm/cardForm";
 
 export default function Body() {
@@ -48,10 +54,24 @@ export default function Body() {
     col: { value: string; error: string }
   ) => {
     if (!col.value) {
-      return setColName({ value: "", error: "🚫 Column name cannot be empty." });
+      return setColName({
+        value: "",
+        error: "🚫 Column name cannot be empty.",
+      });
     }
 
     dispatch(updateColumns({ id, name: col.value }));
+  };
+
+  const handleOnDragOver = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    
+  };
+
+  const handleOnDrop = (event: DragEvent<HTMLDivElement>, newColId: string) => {
+    event.preventDefault();
+    const cardId = event.dataTransfer.getData("text/plain");
+    dispatch(updateCardColumn({ id: cardId, columnId: newColId }));
   };
 
   return (
@@ -119,7 +139,12 @@ export default function Body() {
                             }
                           />
                         </div>
-                        <p style={{marginBottom: '0.8rem'}} className="error_message">{colName.error}</p>
+                        <p
+                          style={{ marginBottom: "0.8rem" }}
+                          className="error_message"
+                        >
+                          {colName.error}
+                        </p>
                         <Button
                           onClick={() => handleEditColumn(col.id, colName)}
                           type="button"
@@ -155,23 +180,29 @@ export default function Body() {
                     </Modal>
                   </div>
                 </div>
-                {cardSelector.cards.map((card: card) => {
-                  return (
-                    card.columnId === col.id && (
-                      <Card key={card.id}>
-                        <Card.CardTag tagName={col.name} />
-                        <Card.CardHeader
-                          heading={card.heading}
-                          description={card.description}
-                        />
-                        <Card.CardLink links={card.link} />
-                        <Card.CardNotes notes={card.notes} />
-                        <hr />
-                        <Card.CardFooter date={card.date} />
-                      </Card>
-                    )
-                  );
-                })}
+                <div
+                  style={{ height: "100%" }}
+                  onDragOver={handleOnDragOver}
+                  onDrop={(e) => handleOnDrop(e, col.id)}
+                >
+                  {cardSelector.cards.map((card: card) => {
+                    return (
+                      card.columnId === col.id && (
+                        <Card id={card.id} key={card.id}>
+                          <Card.CardTag tagName={col.name} />
+                          <Card.CardHeader
+                            heading={card.heading}
+                            description={card.description}
+                          />
+                          <Card.CardLink links={card.link} />
+                          <Card.CardNotes notes={card.notes} id={card.id} />
+                          <hr />
+                          <Card.CardFooter date={card.date} id={card.id} />
+                        </Card>
+                      )
+                    );
+                  })}
+                </div>
 
                 {col.id === colSelector.columns[0].id && (
                   <Modal>

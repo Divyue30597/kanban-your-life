@@ -18,10 +18,15 @@ const columnsSlice = createSlice({
       state.columns.push(action.payload);
       localStorage.setItem("columns", JSON.stringify(state));
     },
-
     deleteColumns: (state, action: PayloadAction<string>) => {
       state.columns = state.columns.filter(
         (column: column) => column.id !== action.payload
+      );
+      // localStorage.setItem("columns", JSON.stringify(state));
+    },
+    deleteColumnsByBoardId: (state, action: PayloadAction<string>) => {
+      state.columns = state.columns.filter(
+        (column: column) => column.boardId !== action.payload
       );
       // localStorage.setItem("columns", JSON.stringify(state));
     },

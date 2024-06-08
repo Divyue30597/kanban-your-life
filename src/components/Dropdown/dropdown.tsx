@@ -24,6 +24,7 @@ export default function Dropdown({
   return (
     <div className={`${styles.dropdown} ${className}`}>
       <Button
+        onMouseEnter={() => setShow(true)}
         onClick={handleClick}
         type="button"
         disabled={isDisabled}

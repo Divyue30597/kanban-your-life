@@ -1,17 +1,17 @@
 import { ReactNode } from "react";
 
 import styles from "./svg.module.scss";
-function SVGWrapper({ children }: { children: ReactNode }) {
+function SVGWrapper({ children, ...props }: { children: ReactNode }) {
   return (
-    <div className={`${styles.svg_wrapper} flex_row flex_center`}>
+    <div {...props} className={`${styles.svg_wrapper} flex_row flex_center`}>
       {children}
     </div>
   );
 }
 
-export function ADD_TASK() {
+export function ADD_TASK({ ...props }) {
   return (
-    <SVGWrapper>
+    <SVGWrapper {...props}>
       <svg
         width="800px"
         height="800px"
@@ -48,9 +48,9 @@ export function ADD_TASK() {
   );
 }
 
-export function CALENDAR() {
+export function CALENDAR({ ...props }) {
   return (
-    <SVGWrapper>
+    <SVGWrapper {...props}>
       <svg
         width="16"
         height="16"
@@ -69,9 +69,9 @@ export function CALENDAR() {
   );
 }
 
-export function CLOSE() {
+export function CLOSE({ ...props }) {
   return (
-    <SVGWrapper>
+    <SVGWrapper {...props}>
       <svg
         width="800px"
         height="800px"
@@ -87,9 +87,9 @@ export function CLOSE() {
   );
 }
 
-export function DELETE() {
+export function DELETE({ ...props }) {
   return (
-    <SVGWrapper>
+    <SVGWrapper {...props}>
       <svg
         width="800px"
         height="800px"
@@ -137,9 +137,9 @@ export function DELETE() {
   );
 }
 
-export function DOTS() {
+export function DOTS({ ...props }) {
   return (
-    <SVGWrapper>
+    <SVGWrapper {...props}>
       <svg
         width="800px"
         height="800px"
@@ -159,9 +159,9 @@ export function DOTS() {
   );
 }
 
-export function EDIT() {
+export function EDIT({ ...props }) {
   return (
-    <SVGWrapper>
+    <SVGWrapper {...props}>
       <svg
         width="800px"
         height="800px"
@@ -181,9 +181,9 @@ export function EDIT() {
   );
 }
 
-export function LINK() {
+export function LINK({ ...props }) {
   return (
-    <SVGWrapper>
+    <SVGWrapper {...props}>
       <svg
         width="16"
         height="16"
@@ -214,9 +214,9 @@ export function LINK() {
   );
 }
 
-export function PLUS() {
+export function PLUS({ ...props }) {
   return (
-    <SVGWrapper>
+    <SVGWrapper {...props}>
       <svg
         width="800px"
         height="800px"
@@ -236,9 +236,9 @@ export function PLUS() {
   );
 }
 
-export function SAVE() {
+export function SAVE({ ...props }) {
   return (
-    <SVGWrapper>
+    <SVGWrapper {...props}>
       <svg
         width="800px"
         height="800px"
@@ -252,6 +252,39 @@ export function SAVE() {
           d="M18.1716 1C18.702 1 19.2107 1.21071 19.5858 1.58579L22.4142 4.41421C22.7893 4.78929 23 5.29799 23 5.82843V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H18.1716ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21L5 21L5 15C5 13.3431 6.34315 12 8 12L16 12C17.6569 12 19 13.3431 19 15V21H20C20.5523 21 21 20.5523 21 20V6.82843C21 6.29799 20.7893 5.78929 20.4142 5.41421L18.5858 3.58579C18.2107 3.21071 17.702 3 17.1716 3H17V5C17 6.65685 15.6569 8 14 8H10C8.34315 8 7 6.65685 7 5V3H4ZM17 21V15C17 14.4477 16.5523 14 16 14L8 14C7.44772 14 7 14.4477 7 15L7 21L17 21ZM9 3H15V5C15 5.55228 14.5523 6 14 6H10C9.44772 6 9 5.55228 9 5V3Z"
           fill="#0F0F0F"
         />
+      </svg>
+    </SVGWrapper>
+  );
+}
+
+export function DRAGANDDROP({ ...props }) {
+  return (
+    <SVGWrapper {...props}>
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M8 6.5C9.38071 6.5 10.5 5.38071 10.5 4C10.5 2.61929 9.38071 1.5 8 1.5C6.61929 1.5 5.5 2.61929 5.5 4C5.5 5.38071 6.61929 6.5 8 6.5Z"
+          fill="#000000"
+        ></path>
+        <path
+          d="M15.5 6.5C16.8807 6.5 18 5.38071 18 4C18 2.61929 16.8807 1.5 15.5 1.5C14.1193 1.5 13 2.61929 13 4C13 5.38071 14.1193 6.5 15.5 6.5Z"
+          fill="#000000"
+        ></path>
+        <path
+          d="M10.5 12C10.5 13.3807 9.38071 14.5 8 14.5C6.61929 14.5 5.5 13.3807 5.5 12C5.5 10.6193 6.61929 9.5 8 9.5C9.38071 9.5 10.5 10.6193 10.5 12Z"
+          fill="#000000"
+        ></path>
+        <path
+          d="M15.5 14.5C16.8807 14.5 18 13.3807 18 12C18 10.6193 16.8807 9.5 15.5 9.5C14.1193 9.5 13 10.6193 13 12C13 13.3807 14.1193 14.5 15.5 14.5Z"
+          fill="#000000"
+        ></path>
+        <path
+          d="M10.5 20C10.5 21.3807 9.38071 22.5 8 22.5C6.61929 22.5 5.5 21.3807 5.5 20C5.5 18.6193 6.61929 17.5 8 17.5C9.38071 17.5 10.5 18.6193 10.5 20Z"
+          fill="#000000"
+        ></path>
+        <path
+          d="M15.5 22.5C16.8807 22.5 18 21.3807 18 20C18 18.6193 16.8807 17.5 15.5 17.5C14.1193 17.5 13 18.6193 13 20C13 21.3807 14.1193 22.5 15.5 22.5Z"
+          fill="#000000"
+        ></path>
       </svg>
     </SVGWrapper>
   );
