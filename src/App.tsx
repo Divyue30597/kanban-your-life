@@ -3,14 +3,18 @@ import Container from "@/components/Container/container";
 import Navbar from "./components/Navbar/navbar";
 import Sidebar from "./components/Sidebar/sidebar";
 import Body from "./components/Body/body";
+import { useAppSelector } from "./store/storeHooks";
 
 function App() {
+  const boardSelector = useAppSelector((state) => state.boards);
+  console.log(boardSelector.boards.length);
+
   return (
     <>
       <Navbar />
       <Container className={styles.container}>
         <Sidebar />
-        <Body />
+        {boardSelector.boards.length ? <Body /> : <>Add a new body</>}
       </Container>
     </>
   );

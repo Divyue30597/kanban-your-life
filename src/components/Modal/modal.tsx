@@ -1,9 +1,8 @@
-import { ReactNode, createContext, useEffect, useRef, useState } from "react";
+import { ButtonHTMLAttributes, HTMLProps, ReactNode, createContext, useEffect, useRef, useState } from "react";
 import useModalContext from "./useModalContext";
 import Button from "../Button/button";
 
 import styles from "./modal.module.scss";
-import { createPortal } from "react-dom";
 
 interface ModalContext {
   isActive: boolean;
@@ -12,11 +11,18 @@ interface ModalContext {
 
 export const ModalContext = createContext<ModalContext | null>(null);
 
-function Modal({ children }: { children: ReactNode }) {
+function Modal({
+  children,
+  handleProps,
+}: {
+  children: ReactNode;
+  handleProps?: () => void;
+}) {
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
     setIsActive(!isActive);
+    if (handleProps) handleProps();
   };
 
   return (
@@ -36,10 +42,7 @@ export function ModalButton({
   children,
   className,
   ...props
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+}: ButtonHTMLAttributes<HTMLButtonElement>) {
   const { handleClick } = useModalContext();
 
   return (

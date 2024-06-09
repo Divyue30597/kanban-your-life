@@ -41,6 +41,8 @@
     overflow-x: scroll;
 
     .column {
+      height: 100%;
+      overflow: hidden;
       .column_heading {
         margin-bottom: 0.8rem;
 
@@ -98,6 +100,11 @@
         align-items: center;
       }
 
+      .card_container {
+        height: 100%;
+        overflow: hidden;
+      }
+
       border-radius: var(--border-radius);
       padding: 1.2rem;
       background-color: #dbeeff;
@@ -107,7 +114,6 @@
 
 .add_card_btn {
   width: 100%;
-  margin-bottom: 1.2rem;
   background-color: var(--primary-color);
   transition: all 350ms;
   border: 0.2rem solid var(--primary-color);

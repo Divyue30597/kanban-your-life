@@ -1,18 +1,15 @@
 import {
   ChangeEvent,
-  Dispatch,
   DragEvent,
   HTMLProps,
-  SetStateAction,
   createContext,
-  useContext,
   useState,
 } from "react";
 
 import Badge from "../Badge/badge";
 import styles from "./card.module.scss";
 import { Link } from "react-router-dom";
-import { CALENDAR, DELETE, EDIT, LINK } from "../Svg/svg";
+import { CALENDAR, DELETE, DRAGANDDROP, EDIT, LINK } from "../Svg/svg";
 import { useAppDispatch } from "@/store/storeHooks";
 import { deleteCard, updateNotesByCardId } from "@/features/cards/cardsSlice";
 import Modal from "../Modal/modal";
@@ -20,13 +17,17 @@ import Button from "../Button/button";
 import useCardContext from "./useCardContext";
 
 interface CardContextProps {
-  setIsDraggable: Dispatch<SetStateAction<boolean>>;
+  handleDraggable: () => void;
 }
 
 export const CardContext = createContext<CardContextProps | null>(null);
 
 function Card({ children, ...props }: HTMLProps<HTMLDivElement>) {
   const [isDraggable, setIsDraggable] = useState(false);
+
+  const handleDraggable = () => {
+    setIsDraggable(!isDraggable);
+  };
 
   const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
     e.dataTransfer.effectAllowed = "move";
@@ -36,18 +37,12 @@ function Card({ children, ...props }: HTMLProps<HTMLDivElement>) {
   };
 
   return (
-    <CardContext.Provider value={{ setIsDraggable }}>
+    <CardContext.Provider value={{ handleDraggable }}>
       <div
         className={styles.card}
         draggable={isDraggable ? "true" : "false"}
-        onMouseDownCapture={(e) => {
-          setIsDraggable(true);
-          e.stopPropagation();
-        }}
-        onMouseUp={(e) => {
-          setIsDraggable(false);
-          e.stopPropagation();
-        }}
+        onMouseDown={handleDraggable}
+        onMouseUp={handleDraggable}
         onDragStart={handleDragStart}
         {...props}
       >
@@ -58,27 +53,11 @@ function Card({ children, ...props }: HTMLProps<HTMLDivElement>) {
 }
 
 function CardTag({ tagName }: { tagName: string }) {
-  // const onDragStart = (e: DragEvent) => {
-  //   e.dataTransfer.effectAllowed = "move";
-  //   if ((e.target as HTMLElement).parentNode) {
-  //     e.dataTransfer.setData("text/html", (e.target as HTMLElement).parentNode);
-  //     e.dataTransfer.setDragImage((e.target as HTMLElement).parentNode, 20, 20);
-  //   }
-  // };
-
   return (
-    <div
-      style={{ marginBottom: "1.2rem" }}
-      className="flex_row space_between align_center"
-    >
-      <div className={styles.badges}>
-        {Array.from({ length: 2 }).map((_, index) => (
-          <Badge key={index} badge={tagName} />
-        ))}
-      </div>
-      {/* <div onDragStart={onDragStart} draggable>
-        <DRAGANDDROP />
-      </div> */}
+    <div className={styles.badges}>
+      {Array.from({ length: 2 }).map((_, index) => (
+        <Badge key={index} badge={tagName} />
+      ))}
     </div>
   );
 }
@@ -147,7 +126,7 @@ function CardLink({ links }: { links: string[] }) {
 
 function CardFooter({ date, id }: { date: string; id: string }) {
   const dispatch = useAppDispatch();
-  const { setIsDraggable } = useCardContext();
+  const { handleDraggable } = useCardContext();
 
   const handleDeleteCard = () => {
     dispatch(deleteCard(id));
@@ -156,13 +135,13 @@ function CardFooter({ date, id }: { date: string; id: string }) {
   return (
     <div className={`${styles.footer} flex_row space_between`}>
       <div className={`${styles.modal_btns} flex_row flex_center`}>
-        <Modal>
+        <Modal handleProps={handleDraggable}>
           <Modal.Button className={styles.edit_btn}>
             <EDIT />
           </Modal.Button>
           <Modal.Body heading="Edit Card">This is Modal Body</Modal.Body>
         </Modal>
-        <Modal>
+        <Modal handleProps={handleDraggable}>
           <Modal.Button className={styles.del_btn}>
             <DELETE />
           </Modal.Button>

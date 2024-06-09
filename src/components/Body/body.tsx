@@ -15,6 +15,7 @@ import {
   deleteColumns,
   updateColumns,
 } from "@/features/columns/columnsSlice";
+
 import {
   card,
   deleteCard,
@@ -28,11 +29,12 @@ export default function Body() {
   const [colName, setColName] = useState({ value: "", error: "" });
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
+
   const colSelector = useAppSelector((state) => state.columns);
   const cardSelector = useAppSelector((state) => state.cards);
 
   const style = {
-    gridTemplateColumns: `repeat(${colSelector.columns.length}, 36rem)`,
+    gridTemplateColumns: `repeat(${colSelector.columns.length}, 34rem)`,
   };
 
   const handleSubmit = () => {
@@ -65,7 +67,6 @@ export default function Body() {
 
   const handleOnDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    
   };
 
   const handleOnDrop = (event: DragEvent<HTMLDivElement>, newColId: string) => {
@@ -181,7 +182,7 @@ export default function Body() {
                   </div>
                 </div>
                 <div
-                  style={{ height: "100%" }}
+                  className={styles.card_container}
                   onDragOver={handleOnDragOver}
                   onDrop={(e) => handleOnDrop(e, col.id)}
                 >
@@ -202,20 +203,19 @@ export default function Body() {
                       )
                     );
                   })}
+                  {col.id === colSelector.columns[0].id && (
+                    <Modal>
+                      <Modal.Button className={styles.add_card_btn}>
+                        <span className="flex_row flex_center">
+                          <ADD_TASK /> Add Card
+                        </span>
+                      </Modal.Button>
+                      <Modal.Body heading="Add Card">
+                        <AddCardForm colId={col.id} />
+                      </Modal.Body>
+                    </Modal>
+                  )}
                 </div>
-
-                {col.id === colSelector.columns[0].id && (
-                  <Modal>
-                    <Modal.Button className={styles.add_card_btn}>
-                      <span className="flex_row flex_center">
-                        <ADD_TASK /> Add Card
-                      </span>
-                    </Modal.Button>
-                    <Modal.Body heading="Add Card">
-                      <AddCardForm colId={col.id} />
-                    </Modal.Body>
-                  </Modal>
-                )}
               </div>
             )
         )}
