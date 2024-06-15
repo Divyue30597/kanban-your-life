@@ -1,4 +1,4 @@
-import { ChangeEvent, DragEvent, DragEventHandler, useState } from "react";
+import { ChangeEvent, DragEvent, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 
@@ -27,6 +27,7 @@ import AddCardForm from "../CardForm/cardForm";
 
 export default function Body() {
   const [colName, setColName] = useState({ value: "", error: "" });
+
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
 
@@ -182,14 +183,14 @@ export default function Body() {
                   </div>
                 </div>
                 <div
-                  className={styles.card_container}
+                  className={`${styles.card_container} card-container`}
                   onDragOver={handleOnDragOver}
                   onDrop={(e) => handleOnDrop(e, col.id)}
                 >
                   {cardSelector.cards.map((card: card) => {
                     return (
                       card.columnId === col.id && (
-                        <Card id={card.id} key={card.id}>
+                        <Card key={card.id} id={card.id}>
                           <Card.CardTag tagName={col.name} />
                           <Card.CardHeader
                             heading={card.heading}
@@ -198,7 +199,7 @@ export default function Body() {
                           <Card.CardLink links={card.link} />
                           <Card.CardNotes notes={card.notes} id={card.id} />
                           <hr />
-                          <Card.CardFooter date={card.date} id={card.id} />
+                          <Card.CardFooter date={card.date} />
                         </Card>
                       )
                     );

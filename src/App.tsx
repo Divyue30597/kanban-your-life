@@ -7,7 +7,6 @@ import { useAppSelector } from "./store/storeHooks";
 
 function App() {
   const boardSelector = useAppSelector((state) => state.boards);
-  console.log(boardSelector.boards.length);
 
   return (
     <>

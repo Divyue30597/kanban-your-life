@@ -7,7 +7,7 @@
   background-color: #fff;
   border-radius: var(--border-radius);
   font-size: 1.6rem;
-  z-index: 9;
+  z-index: 99999;
   width: 40rem;
 }
 
@@ -22,11 +22,11 @@
 }
 
 .background_div {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 8;
+  z-index: 99998;
   height: 100dvh;
   width: 100dvw;
   background-color: #0005;
