@@ -138,6 +138,10 @@
     border: 0.2rem solid var(--success-color);
     transition: all 350ms;
 
+    & > span {
+      margin-left: 0.8rem;
+    }
+
     &:hover,
     &:focus {
       background-color: #fff;

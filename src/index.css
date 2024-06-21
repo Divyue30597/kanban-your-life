@@ -216,6 +216,16 @@ hr {
   margin-bottom: 1.2rem;
 }
 
+.dragging {
+  opacity: 0.5;
+  transform: scale(0.8);
+}
+
+.drop {
+  /* border: 0.4rem dotted #000 !important; */
+  background-color: #66de93;
+}
+
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

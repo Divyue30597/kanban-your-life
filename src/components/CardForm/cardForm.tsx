@@ -38,6 +38,7 @@ export default function AddCardForm({ colId }: CardFormProps) {
     notes: "",
     link: Array(linkLen).fill(""),
     date: "",
+    storyPoints: 5,
   });
 
   const dispatch = useAppDispatch();

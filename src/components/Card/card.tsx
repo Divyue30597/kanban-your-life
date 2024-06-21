@@ -1,61 +1,38 @@
-import {
-  ChangeEvent,
-  DragEvent,
-  HTMLProps,
-  MouseEvent,
-  createContext,
-  useState,
-} from "react";
+import { ChangeEvent, DragEvent, HTMLProps, useState } from "react";
 
 import Badge from "../Badge/badge";
 import styles from "./card.module.scss";
 import { Link } from "react-router-dom";
-import { CALENDAR, CLOCK, DELETE, DRAGANDDROP, EDIT, LINK } from "../Svg/svg";
+import { CALENDAR, CLOCK, LINK } from "../Svg/svg";
 import { useAppDispatch } from "@/store/storeHooks";
-import { deleteCard, updateNotesByCardId } from "@/features/cards/cardsSlice";
-import Modal from "../Modal/modal";
-import Button from "../Button/button";
-import useCardContext from "./useCardContext";
+import { updateNotesByCardId } from "@/features/cards/cardsSlice";
 
-interface CardContextProps {
-  handleMouseUp: () => void;
+interface CardProps extends HTMLProps<HTMLDivElement> {
+  id: string;
 }
 
-export const CardContext = createContext<CardContextProps | null>(null);
-
-function Card({ children, ...props }: HTMLProps<HTMLDivElement>) {
-  const [isDraggable, setIsDraggable] = useState(false);
-
-  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-    setIsDraggable(true);
-    e.stopPropagation();
-  };
-
-  const handleMouseUp = () => {
-    setIsDraggable(false);
-  };
-
+function Card({ children, id, ...props }: CardProps) {
   const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
     e.dataTransfer.effectAllowed = "move";
-    e.dataTransfer.setData("text/plain", (e.target as HTMLElement).id);
+    e.dataTransfer.setData("text/plain", id);
     e.dataTransfer.setDragImage(e.target as HTMLElement, 100, 100);
-    e.stopPropagation();
-    e.preventDefault();
+    e.currentTarget.classList.add("dragging");
+  };
+
+  const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
+    e.currentTarget.classList.remove("dragging");
   };
 
   return (
-    <CardContext.Provider value={{ handleMouseUp }}>
-      <div
-        className={styles.card}
-        draggable
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onDragStart={handleDragStart}
-        {...props}
-      >
-        {children}
-      </div>
-    </CardContext.Provider>
+    <div
+      className={styles.card}
+      draggable
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      {...props}
+    >
+      {children}
+    </div>
   );
 }
 
@@ -131,12 +108,18 @@ function CardLink({ links }: { links: string[] }) {
   );
 }
 
-function CardFooter({ date }: { date: string }) {
+function CardFooter({
+  date,
+  storyPoints,
+}: {
+  date: string;
+  storyPoints: number;
+}) {
   return (
     <div className={`${styles.footer} flex_row flex_center space_between`}>
       <div className={`${styles.date} flex_row flex_center`}>
         <CLOCK />
-        <p>8</p>
+        <p>{storyPoints}</p>
       </div>
       <div className={`${styles.date} flex_row flex_center`}>
         <CALENDAR />

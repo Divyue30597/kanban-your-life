@@ -68,6 +68,7 @@ export default function Body() {
 
   const handleOnDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
+    // event.currentTarget.classList.remove("drop");
   };
 
   const handleOnDrop = (event: DragEvent<HTMLDivElement>, newColId: string) => {
@@ -199,7 +200,10 @@ export default function Body() {
                           <Card.CardLink links={card.link} />
                           <Card.CardNotes notes={card.notes} id={card.id} />
                           <hr />
-                          <Card.CardFooter date={card.date} />
+                          <Card.CardFooter
+                            date={card.date}
+                            storyPoints={card.storyPoints}
+                          />
                         </Card>
                       )
                     );

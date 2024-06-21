@@ -10,6 +10,7 @@ export type card = {
   // tag: string;
   columnId: string;
   boardId: string;
+  storyPoints: number;
 };
 
 const initialState = {

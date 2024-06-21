@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar/navbar";
 import Sidebar from "./components/Sidebar/sidebar";
 import Body from "./components/Body/body";
 import { useAppSelector } from "./store/storeHooks";
+import image from "/styles/images/start_your_journey.svg";
 
 function App() {
   const boardSelector = useAppSelector((state) => state.boards);
@@ -13,7 +14,14 @@ function App() {
       <Navbar />
       <Container className={styles.container}>
         <Sidebar />
-        {boardSelector.boards.length ? <Body /> : <>Add a new body</>}
+        {boardSelector.boards.length ? (
+          <Body />
+        ) : (
+          <div className={styles.no_cols}>
+            <img src={image} alt="start_your_journey" />
+            <p> Start By Adding a Board</p>
+          </div>
+        )}
       </Container>
     </>
   );

@@ -1,0 +1,103 @@
+[
+  {
+    "cards": [
+      {
+        "id": "card1",
+        "heading": "Implement Authentication",
+        "description": "Add authentication to the application using JWT.",
+        "notes": "Remember to handle token expiration.",
+        "date": "2024-06-01",
+        "link": [
+          "https://auth.docs",
+          "https://jwt.io"
+        ],
+        "columnId": "column1",
+        "boardId": "board1",
+        "storyPoints": 8
+      },
+      {
+        "id": "card2",
+        "heading": "Create Landing Page",
+        "description": "Design and implement the landing page for the website.",
+        "notes": "Focus on responsive design.",
+        "date": "2024-06-05",
+        "link": [
+          "https://landingpage.design"
+        ],
+        "columnId": "column1",
+        "boardId": "board1",
+        "storyPoints": 5
+      },
+      {
+        "id": "card3",
+        "heading": "Setup CI/CD",
+        "description": "Setup Continuous Integration and Continuous Deployment pipeline.",
+        "notes": "Use GitHub Actions.",
+        "date": "2024-06-10",
+        "link": [
+          "https://github.com/actions"
+        ],
+        "columnId": "column2",
+        "boardId": "board1",
+        "storyPoints": 13
+      },
+      {
+        "id": "card4",
+        "heading": "Database Optimization",
+        "description": "Optimize database queries and indexes.",
+        "notes": "Check the slow query log for MySQL.",
+        "date": "2024-06-12",
+        "link": [
+          "https://mysql.optimization"
+        ],
+        "columnId": "column3",
+        "boardId": "board1",
+        "storyPoints": 8
+      },
+      {
+        "id": "card5",
+        "heading": "User Feedback Form",
+        "description": "Implement a feedback form for users.",
+        "notes": "Include validation for all fields.",
+        "date": "2024-06-15",
+        "link": [
+          "https://form.validation"
+        ],
+        "columnId": "column2",
+        "boardId": "board2",
+        "storyPoints": 3
+      }
+    ]
+  },
+  {
+    "columns": [
+      {
+        "id": "column1",
+        "name": "To Do",
+        "boardId": "board1"
+      },
+      {
+        "id": "column2",
+        "name": "In Progress",
+        "boardId": "board1"
+      },
+      {
+        "id": "column3",
+        "name": "Done",
+        "boardId": "board1"
+      }
+    ]
+  },
+  {
+    "boards": [
+      {
+        "id": "board1",
+        "name": "Development Board"
+      },
+      {
+        "id": "board2",
+        "name": "Marketing Board"
+      }
+    ]
+  }
+]

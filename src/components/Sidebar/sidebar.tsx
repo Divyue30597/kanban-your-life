@@ -123,7 +123,6 @@ export default function Sidebar() {
             <div className={styles.input}>
               <input
                 ref={inputRef}
-                className={styles.input}
                 type="text"
                 value={boardName.name}
                 onChange={(e) =>
