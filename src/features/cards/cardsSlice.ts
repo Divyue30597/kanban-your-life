@@ -31,19 +31,19 @@ const cardsSlice = createSlice({
       state.cards = state.cards.filter(
         (card: card) => card.id !== action.payload
       );
-      // localStorage.setItem("cards", JSON.stringify(state));
+      localStorage.setItem("cards", JSON.stringify(state));
     },
     deleteColumnsWithCards: (state, action: PayloadAction<string>) => {
       state.cards = state.cards.filter(
         (card: card) => card.columnId !== action.payload
       );
-      // localStorage.setItem("cards", JSON.stringify(state));
+      localStorage.setItem("cards", JSON.stringify(state));
     },
     deleteBoardWithCards: (state, action: PayloadAction<string>) => {
       state.cards = state.cards.filter(
         (card: card) => card.boardId !== action.payload
       );
-      // localStorage.setItem("cards", JSON.stringify(state));
+      localStorage.setItem("cards", JSON.stringify(state));
     },
     updateNotesByCardId: (
       state,
@@ -74,7 +74,7 @@ const cardsSlice = createSlice({
         return card;
       });
 
-      // localStorage.setItem("cards", JSON.stringify(state));
+      localStorage.setItem("cards", JSON.stringify(state));
     },
 
     updateCardColumn: (
@@ -91,7 +91,7 @@ const cardsSlice = createSlice({
         return card;
       });
 
-      // localStorage.setItem("cards", JSON.stringify(state));
+      localStorage.setItem("cards", JSON.stringify(state));
     },
   },
 });

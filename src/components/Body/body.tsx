@@ -194,6 +194,7 @@ export default function Body() {
                         <Card key={card.id} id={card.id}>
                           <Card.CardTag tagName={col.name} />
                           <Card.CardHeader
+                            id={card.id}
                             heading={card.heading}
                             description={card.description}
                           />

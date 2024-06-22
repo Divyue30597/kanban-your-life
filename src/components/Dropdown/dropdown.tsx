@@ -23,12 +23,7 @@ export default function Dropdown({
 
   return (
     <div className={`${styles.dropdown} ${className}`}>
-      <Button
-        onMouseEnter={() => setShow(true)}
-        onClick={handleClick}
-        type="button"
-        disabled={isDisabled}
-      >
+      <Button onClick={handleClick} type="button" disabled={isDisabled}>
         {buttonInternal}
       </Button>
       {show && <div className={styles.dropdown_content}>{children}</div>}

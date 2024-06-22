@@ -12,21 +12,25 @@ interface CardProps extends HTMLProps<HTMLDivElement> {
 }
 
 function Card({ children, id, ...props }: CardProps) {
+  const [isDraggable, setIsDraggable] = useState(false);
   const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
-    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.effectAllowed = "copyMove";
     e.dataTransfer.setData("text/plain", id);
-    e.dataTransfer.setDragImage(e.target as HTMLElement, 100, 100);
-    e.currentTarget.classList.add("dragging");
+    e.dataTransfer.setDragImage(e.target as HTMLElement, 50, 50);
+    e.stopPropagation();
   };
 
   const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
-    e.currentTarget.classList.remove("dragging");
+    e.preventDefault();
   };
 
   return (
     <div
-      className={styles.card}
-      draggable
+      className={styles.card + " " + (isDraggable ? styles.dragging : "")}
+      draggable={isDraggable ? "true" : "false"}
+      onMouseDown={() => setIsDraggable(true)}
+      onMouseUp={() => setIsDraggable(false)}
+      onMouseLeave={() => setIsDraggable(false)}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       {...props}
@@ -49,13 +53,23 @@ function CardTag({ tagName }: { tagName: string }) {
 function CardHeader({
   heading,
   description,
+  id,
 }: {
   heading: string;
   description: string;
+  id: string;
 }) {
   return (
-    <div className={styles.content}>
-      <h2>{heading}</h2>
+    <div draggable="false" className={styles.content}>
+      <h2>
+        <Link
+          draggable="false"
+          onMouseDown={(e) => e.stopPropagation()}
+          to={`/card/${id}`}
+        >
+          {heading}
+        </Link>
+      </h2>
       <p>{description}</p>
     </div>
   );
@@ -66,19 +80,21 @@ function CardNotes({ notes, id }: { notes: string; id: string }) {
   const [notesValue, setNotesValue] = useState({ value: notes, error: "" });
 
   const handleNotesChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    if (!notesValue.value.length) {
-      return setNotesValue({ value: "", error: "🚫 Notes cannot be empty." });
-    }
+    const newValue = event.target.value;
 
-    setNotesValue({
-      value: event.target.value,
-      error: "",
+    setNotesValue((prevVal) => {
+      return newValue.length === 0
+        ? { ...prevVal, value: newValue, error: "🚫 Notes cannot be empty." }
+        : { ...prevVal, value: newValue, error: "" };
     });
-    dispatch(updateNotesByCardId({ id, notes: event.target.value }));
+
+    if (newValue.length !== 0) {
+      dispatch(updateNotesByCardId({ id, notes: newValue }));
+    }
   };
 
   return (
-    <div className={styles.notes}>
+    <div className={styles.notes} onMouseDown={(e) => e.stopPropagation()}>
       <label htmlFor="notes">Notes:</label>
       <textarea
         name="notes"
@@ -99,7 +115,13 @@ function CardLink({ links }: { links: string[] }) {
       {links.map((link, index) => {
         if (!link.length) return null;
         return (
-          <Link key={link + index} to={link} target="_blank">
+          <Link
+            draggable="false"
+            onMouseDown={(e) => e.stopPropagation()}
+            key={link + index}
+            to={link}
+            target="_blank"
+          >
             <LINK />
           </Link>
         );
