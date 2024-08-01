@@ -1,6 +1,5 @@
 import { ChangeEvent, DragEvent, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { v4 as uuid } from "uuid";
 
 import Button from "../Button/button";
 import { ADD_TASK, DELETE, EDIT, PLUS } from "../Svg/svg";
@@ -13,7 +12,6 @@ import {
   column,
   createColumns,
   deleteColumns,
-  updateColumns,
 } from "@/features/columns/columnsSlice";
 
 import {
@@ -24,10 +22,11 @@ import {
   updateCardColumn,
 } from "@/features/cards/cardsSlice";
 import AddCardForm from "../CardForm/cardForm";
+import EditForm from "../EditForm/editForm";
+import AddColumn from "../AddColumn/addColumn";
 
 export default function Body() {
   const [colName, setColName] = useState({ value: "", error: "" });
-
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
 
@@ -38,32 +37,9 @@ export default function Body() {
     gridTemplateColumns: `repeat(${colSelector.columns.length}, 34rem)`,
   };
 
-  const handleSubmit = () => {
-    const newColumn = {
-      id: uuid(),
-      name: colName.value,
-      boardId: pathname.split("/")[1],
-    };
-    dispatch(createColumns(newColumn));
-  };
-
   const handleDeleteColumn = (id: string) => {
     dispatch(deleteColumns(id));
     dispatch(deleteColumnsWithCards(id));
-  };
-
-  const handleEditColumn = (
-    id: string,
-    col: { value: string; error: string }
-  ) => {
-    if (!col.value) {
-      return setColName({
-        value: "",
-        error: "🚫 Column name cannot be empty.",
-      });
-    }
-
-    dispatch(updateColumns({ id, name: col.value }));
   };
 
   const handleOnDragOver = (event: DragEvent<HTMLDivElement>) => {
@@ -86,21 +62,7 @@ export default function Body() {
             <PLUS /> Add Column
           </Modal.Button>
           <Modal.Body heading="Add Column">
-            <form onSubmit={handleSubmit}>
-              <TextInput
-                required
-                type="text"
-                labelId="add-column"
-                label="Add Column"
-                placeholder="Eg. Todo"
-                value={colName.value}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setColName({ ...colName, value: e.target.value })
-                }
-                errorMessage="🚫 Add Column cannot be empty."
-              />
-              <Button type="submit">Save</Button>
-            </form>
+            <AddColumn colName={colName} setColName={setColName} />
           </Modal.Body>
         </Modal>
       </div>
@@ -123,37 +85,11 @@ export default function Body() {
                         className={styles.edit_col_body}
                         heading="Edit Column"
                       >
-                        <div className={`${styles.edit_col_input} flex_col`}>
-                          <label htmlFor="edit-column-name">
-                            Edit Column Name
-                          </label>
-                          <input
-                            id="edit-column-name"
-                            name="edit-column-name"
-                            type="text"
-                            required
-                            placeholder={col.name}
-                            value={colName.value}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                              setColName({
-                                error: "",
-                                value: e.target.value,
-                              })
-                            }
-                          />
-                        </div>
-                        <p
-                          style={{ marginBottom: "0.8rem" }}
-                          className="error_message"
-                        >
-                          {colName.error}
-                        </p>
-                        <Button
-                          onClick={() => handleEditColumn(col.id, colName)}
-                          type="button"
-                        >
-                          Save
-                        </Button>
+                        <EditForm
+                          col={col}
+                          colName={colName}
+                          setColName={setColName}
+                        />
                       </Modal.Body>
                     </Modal>
                     <Modal>
