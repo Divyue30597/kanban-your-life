@@ -2,9 +2,10 @@ import { ChangeEvent, FormEvent } from "react";
 
 import styles from "@/components/EditForm/editForm.module.scss";
 
-import { column, updateColumns } from "@/features/columns/columnsSlice";
+import { updateColumns } from "@/features/columns/columnsSlice";
 import Button from "../Button/button";
 import { useAppDispatch } from "@/store/storeHooks";
+import { colName, column } from "@/types/types";
 
 export default function EditForm({
   col,
@@ -12,16 +13,8 @@ export default function EditForm({
   setColName,
 }: {
   col: column;
-  colName: {
-    value: string;
-    error: string;
-  };
-  setColName: React.Dispatch<
-    React.SetStateAction<{
-      value: string;
-      error: string;
-    }>
-  >;
+  colName: colName;
+  setColName: React.Dispatch<React.SetStateAction<colName>>;
 }) {
   const dispatch = useAppDispatch();
 

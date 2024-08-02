@@ -1,29 +1,21 @@
-import { ChangeEvent, DragEvent, useState } from "react";
+import { DragEvent, useState } from "react";
 import { useLocation } from "react-router-dom";
-
+import styles from "./body.module.scss";
 import Button from "../Button/button";
 import { ADD_TASK, DELETE, EDIT, PLUS } from "../Svg/svg";
-import styles from "./body.module.scss";
 import Card from "../Card/card";
 import Modal from "../Modal/modal";
-import TextInput from "../Input/input";
 import { useAppDispatch, useAppSelector } from "@/store/storeHooks";
-import {
-  column,
-  createColumns,
-  deleteColumns,
-} from "@/features/columns/columnsSlice";
-
+import { deleteColumns } from "@/features/columns/columnsSlice";
 import {
   card,
-  deleteCard,
   deleteColumnsWithCards,
-  updateCard,
   updateCardColumn,
 } from "@/features/cards/cardsSlice";
 import AddCardForm from "../CardForm/cardForm";
 import EditForm from "../EditForm/editForm";
 import AddColumn from "../AddColumn/addColumn";
+import { column } from "@/types/types";
 
 export default function Body() {
   const [colName, setColName] = useState({ value: "", error: "" });

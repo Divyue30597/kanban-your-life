@@ -13,6 +13,7 @@ interface CardProps extends HTMLProps<HTMLDivElement> {
 
 function Card({ children, id, ...props }: CardProps) {
   const [isDraggable, setIsDraggable] = useState(false);
+
   const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
     e.dataTransfer.effectAllowed = "copyMove";
     e.dataTransfer.setData("text/plain", id);

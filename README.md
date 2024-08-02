@@ -9,5 +9,5 @@
 - [x] Dragabble components
 - [x] No login requirements
 - [ ] Sync with google calendar
-- [ ] Ask for suggestion for new feature
 - [ ] Adding a simple todo list system
+- [ ] Add an AI feature such that it generate card based on prompts entered in json format

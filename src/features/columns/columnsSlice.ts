@@ -1,10 +1,5 @@
+import { column } from "@/types/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-
-export type column = {
-  id: string;
-  name: string;
-  boardId: string;
-};
 
 const initialState = { columns: [] };
 
