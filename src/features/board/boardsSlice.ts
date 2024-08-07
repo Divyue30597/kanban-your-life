@@ -1,9 +1,5 @@
+import { board } from "@/types/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-
-export type board = {
-  id: string;
-  name: string;
-};
 
 const initialState = { boards: [] };
 

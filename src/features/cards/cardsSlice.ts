@@ -1,17 +1,5 @@
+import { card } from "@/types/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-
-export type card = {
-  id: string;
-  heading: string;
-  description: string;
-  notes: string;
-  date: string;
-  link: string[];
-  // tag: string;
-  columnId: string;
-  boardId: string;
-  storyPoints: number;
-};
 
 const initialState = {
   cards: [],

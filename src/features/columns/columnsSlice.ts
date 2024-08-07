@@ -17,13 +17,13 @@ const columnsSlice = createSlice({
       state.columns = state.columns.filter(
         (column: column) => column.id !== action.payload
       );
-      // localStorage.setItem("columns", JSON.stringify(state));
+      localStorage.setItem("columns", JSON.stringify(state));
     },
     deleteColumnsByBoardId: (state, action: PayloadAction<string>) => {
       state.columns = state.columns.filter(
         (column: column) => column.boardId !== action.payload
       );
-      // localStorage.setItem("columns", JSON.stringify(state));
+      localStorage.setItem("columns", JSON.stringify(state));
     },
     updateColumns: (
       state,
@@ -38,7 +38,7 @@ const columnsSlice = createSlice({
         }
         return column;
       });
-      // localStorage.setItem("columns", JSON.stringify(state));
+      localStorage.setItem("columns", JSON.stringify(state));
     },
   },
 });
