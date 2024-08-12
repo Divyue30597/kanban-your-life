@@ -216,10 +216,10 @@ hr {
   margin-bottom: 1.2rem;
 }
 
-.dragging {
+/* .dragging {
   opacity: 0.5;
   transform: scale(0.8);
-}
+} */
 
 .drop {
   /* border: 0.4rem dotted #000 !important; */

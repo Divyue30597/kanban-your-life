@@ -13,7 +13,8 @@
         ],
         "columnId": "column1",
         "boardId": "board1",
-        "storyPoints": 8
+        "storyPoints": 8,
+        "index": 0
       },
       {
         "id": "card2",
@@ -26,7 +27,8 @@
         ],
         "columnId": "column1",
         "boardId": "board1",
-        "storyPoints": 5
+        "storyPoints": 5,
+        "index": 1
       },
       {
         "id": "card3",
@@ -39,7 +41,8 @@
         ],
         "columnId": "column2",
         "boardId": "board1",
-        "storyPoints": 13
+        "storyPoints": 13,
+        "index": 2
       },
       {
         "id": "card4",
@@ -52,7 +55,8 @@
         ],
         "columnId": "column3",
         "boardId": "board1",
-        "storyPoints": 8
+        "storyPoints": 8,
+        "index": 3
       },
       {
         "id": "card5",
@@ -65,7 +69,8 @@
         ],
         "columnId": "column2",
         "boardId": "board2",
-        "storyPoints": 3
+        "storyPoints": 3,
+        "index": 4
       }
     ]
   },

@@ -33,6 +33,10 @@ const cardsSlice = createSlice({
       );
       localStorage.setItem("cards", JSON.stringify(state));
     },
+    updateCards: (state, action: PayloadAction<{ cards: card[] }>) => {
+      state.cards = action.payload.cards;
+      localStorage.setItem("cards", JSON.stringify(state));
+    },
     updateNotesByCardId: (
       state,
       action: PayloadAction<{ id: string; notes: string }>
@@ -92,6 +96,7 @@ export const {
   updateNotesByCardId,
   updateCard,
   updateCardColumn,
+  updateCards,
 } = cardsSlice.actions;
 
 export default cardsSlice.reducer;

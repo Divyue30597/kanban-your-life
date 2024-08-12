@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 import styles from "./cardForm.module.scss";
 
-import { useAppDispatch } from "@/store/storeHooks";
+import { useAppDispatch, useAppSelector } from "@/store/storeHooks";
 import { createCards } from "@/features/cards/cardsSlice";
 
 import Button from "../Button/button";
@@ -42,6 +42,7 @@ export default function AddCardForm({ colId }: CardFormProps) {
   });
 
   const dispatch = useAppDispatch();
+  const cardSelector = useAppSelector((state) => state.cards);
   const { pathname } = useLocation();
 
   const handleLinkChange = (
@@ -67,6 +68,7 @@ export default function AddCardForm({ colId }: CardFormProps) {
       columnId: colId,
       boardId: pathname.split("/")[1],
       date: `${dateTime} ${month}`,
+      index: cardSelector.cards?.length,
     };
 
     dispatch(createCards(payload));

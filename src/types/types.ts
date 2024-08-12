@@ -25,4 +25,5 @@ export type card = {
   columnId: string;
   boardId: string;
   storyPoints: number;
+  index: number;
 };

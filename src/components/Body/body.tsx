@@ -8,14 +8,14 @@ import Modal from "../Modal/modal";
 import { useAppDispatch, useAppSelector } from "@/store/storeHooks";
 import { deleteColumns } from "@/features/columns/columnsSlice";
 import {
-  card,
   deleteColumnsWithCards,
   updateCardColumn,
+  updateCards,
 } from "@/features/cards/cardsSlice";
 import AddCardForm from "../CardForm/cardForm";
 import EditForm from "../EditForm/editForm";
 import AddColumn from "../AddColumn/addColumn";
-import { column } from "@/types/types";
+import { card, column } from "@/types/types";
 
 export default function Body() {
   const [colName, setColName] = useState({ value: "", error: "" });
@@ -36,12 +36,18 @@ export default function Body() {
 
   const handleOnDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    // event.currentTarget.classList.remove("drop");
   };
 
   const handleOnDrop = (event: DragEvent<HTMLDivElement>, newColId: string) => {
     event.preventDefault();
     const cardId = event.dataTransfer.getData("text/plain");
+    const index = Number(event.dataTransfer.getData("index/plain"));
+    const newItems = [...cardSelector.cards];
+    console.log(newItems);
+    const [draggedItem] = newItems.splice(index, 1);
+    console.log(draggedItem);
+    newItems.splice(index, 0, draggedItem);
+    dispatch(updateCards({ cards: newItems }));
     dispatch(updateCardColumn({ id: cardId, columnId: newColId }));
   };
 
@@ -115,11 +121,18 @@ export default function Body() {
                   className={`${styles.card_container} card-container`}
                   onDragOver={handleOnDragOver}
                   onDrop={(e) => handleOnDrop(e, col.id)}
+                  data-col-id={col.id}
                 >
-                  {cardSelector.cards.map((card: card) => {
+                  {cardSelector?.cards?.map((card: card, index: number) => {
                     return (
                       card.columnId === col.id && (
-                        <Card key={card.id} id={card.id}>
+                        <Card
+                          data-id={card.id}
+                          data-col-id={col.id}
+                          index={index}
+                          key={card.id}
+                          id={card.id}
+                        >
                           <Card.CardTag tagName={col.name} />
                           <Card.CardHeader
                             id={card.id}
@@ -137,18 +150,19 @@ export default function Body() {
                       )
                     );
                   })}
-                  {col.id === colSelector.columns[0].id && (
-                    <Modal>
-                      <Modal.Button className={styles.add_card_btn}>
-                        <span className="flex_row flex_center">
-                          <ADD_TASK /> Add Card
-                        </span>
-                      </Modal.Button>
-                      <Modal.Body heading="Add Card">
-                        <AddCardForm colId={col.id} />
-                      </Modal.Body>
-                    </Modal>
-                  )}
+                  {col.id === colSelector.columns[0].id &&
+                    cardSelector.cards?.length < 5   && (
+                      <Modal>
+                        <Modal.Button className={styles.add_card_btn}>
+                          <span className="flex_row flex_center">
+                            <ADD_TASK /> Add Card
+                          </span>
+                        </Modal.Button>
+                        <Modal.Body heading="Add Card">
+                          <AddCardForm colId={col.id} />
+                        </Modal.Body>
+                      </Modal>
+                    )}
                 </div>
               </div>
             )

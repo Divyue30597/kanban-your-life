@@ -1,4 +1,4 @@
-import { ChangeEvent, DragEvent, HTMLProps, useState } from "react";
+import { ChangeEvent, DragEvent, HTMLProps, useRef, useState } from "react";
 
 import Badge from "../Badge/badge";
 import styles from "./card.module.scss";
@@ -9,20 +9,41 @@ import { updateNotesByCardId } from "@/features/cards/cardsSlice";
 
 interface CardProps extends HTMLProps<HTMLDivElement> {
   id: string;
+  index: number;
 }
 
-function Card({ children, id, ...props }: CardProps) {
+function Card({ children, id, index, ...props }: CardProps) {
   const [isDraggable, setIsDraggable] = useState(false);
+  // const [startCol, setStartCol] = useState("");
+  const startCol = useRef<string>("");
 
-  const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
+  const handleDragStart = (e: DragEvent<HTMLDivElement>, index: number) => {
     e.dataTransfer.effectAllowed = "copyMove";
     e.dataTransfer.setData("text/plain", id);
-    e.dataTransfer.setDragImage(e.target as HTMLElement, 50, 50);
+    e.dataTransfer.setData("index/plain", index.toString());
+    // e.dataTransfer.setDragImage(e.target as HTMLElement, 50, 50);
+    startCol.current = e.currentTarget.parentElement?.dataset.colId as string;
     e.stopPropagation();
   };
 
   const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+  };
+
+  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    if (
+      startCol.current !==
+      (event.currentTarget.parentElement?.dataset.colId as string)
+    ) {
+      console.log(event.currentTarget.getBoundingClientRect().toJSON())
+
+      event.currentTarget.style.transform = `translateY(${
+        event.currentTarget.clientHeight / 10
+      }rem)`;
+      event.currentTarget.style.transition = `transform 0.3s ease-in-out`;
+      event.stopPropagation();
+    }
   };
 
   return (
@@ -32,8 +53,9 @@ function Card({ children, id, ...props }: CardProps) {
       onMouseDown={() => setIsDraggable(true)}
       onMouseUp={() => setIsDraggable(false)}
       onMouseLeave={() => setIsDraggable(false)}
-      onDragStart={handleDragStart}
+      onDragStart={(e) => handleDragStart(e, index)}
       onDragEnd={handleDragEnd}
+      onDragOver={(e) => handleDragOver(e)}
       {...props}
     >
       {children}
