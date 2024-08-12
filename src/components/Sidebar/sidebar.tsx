@@ -30,6 +30,8 @@ export default function Sidebar() {
   const selector = useAppSelector((state) => state.boards);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  console.log(selector);
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 

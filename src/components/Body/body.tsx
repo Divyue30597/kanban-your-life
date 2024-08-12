@@ -2,7 +2,7 @@ import { DragEvent, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./body.module.scss";
 import Button from "../Button/button";
-import { ADD_TASK, DELETE, EDIT, PLUS } from "../Svg/svg";
+import { DELETE, EDIT, PLUS } from "../Svg/svg";
 import Card from "../Card/card";
 import Modal from "../Modal/modal";
 import { useAppDispatch, useAppSelector } from "@/store/storeHooks";
@@ -10,13 +10,10 @@ import { deleteColumns } from "@/features/columns/columnsSlice";
 import {
   deleteColumnsWithCards,
   updateCardColumn,
-  updateCards,
 } from "@/features/cards/cardsSlice";
-import AddCardForm from "../CardForm/cardForm";
 import EditForm from "../EditForm/editForm";
 import AddColumn from "../AddColumn/addColumn";
 import { card, column, InputType } from "@/types/types";
-import InputColor from "../InputColor/InputColor";
 
 export default function Body() {
   const [colName, setColName] = useState<InputType>({ value: "", error: "" });
@@ -25,6 +22,7 @@ export default function Body() {
 
   const selector = useAppSelector((state) => state.boards);
   const board = selector[pathname.split("/")[1]];
+  console.log(board)
   // const cardSelector = useAppSelector((state) => state.cards);
 
   const style = {
@@ -43,13 +41,13 @@ export default function Body() {
   const handleOnDrop = (event: DragEvent<HTMLDivElement>, newColId: string) => {
     event.preventDefault();
     const cardId = event.dataTransfer.getData("text/plain");
-    const index = Number(event.dataTransfer.getData("index/plain"));
-    const newItems = [...cardSelector.cards];
-    console.log(newItems);
-    const [draggedItem] = newItems.splice(index, 1);
-    console.log(draggedItem);
-    newItems.splice(index, 0, draggedItem);
-    dispatch(updateCards({ cards: newItems }));
+    // const index = Number(event.dataTransfer.getData("index/plain"));
+    // const newItems = [...cardSelector.cards];
+    // console.log(newItems);
+    // const [draggedItem] = newItems.splice(index, 1);
+    // console.log(draggedItem);
+    // newItems.splice(index, 0, draggedItem);
+    // dispatch(updateCards({ cards: newItems }));
     dispatch(updateCardColumn({ id: cardId, columnId: newColId }));
   };
 
@@ -127,29 +125,27 @@ export default function Body() {
                 >
                   {col.cards?.map((card: card, index: number) => {
                     return (
-                      col.id === card.columnId && (
-                        <Card
-                          data-id={card.id}
-                          data-col-id={col.id}
-                          index={index}
-                          key={card.id}
+                      <Card
+                        data-id={card.id}
+                        data-col-id={col.id}
+                        index={index}
+                        key={card.id}
+                        id={card.id}
+                      >
+                        <Card.CardTag tagName={col.name} />
+                        <Card.CardHeader
                           id={card.id}
-                        >
-                          <Card.CardTag tagName={col.name} />
-                          <Card.CardHeader
-                            id={card.id}
-                            heading={card.heading}
-                            description={card.description}
-                          />
-                          <Card.CardLink links={card.link} />
-                          <Card.CardNotes notes={card.notes} id={card.id} />
-                          <hr />
-                          <Card.CardFooter
-                            date={card.date}
-                            storyPoints={card.storyPoints}
-                          />
-                        </Card>
-                      )
+                          heading={card.heading}
+                          description={card.description}
+                        />
+                        <Card.CardLink links={card.link} />
+                        <Card.CardNotes notes={card.notes} id={card.id} />
+                        <hr />
+                        <Card.CardFooter
+                          date={card.date}
+                          storyPoints={card.storyPoints}
+                        />
+                      </Card>
                     );
                   })}
                   {/* {col.boardId === board.boards &&

@@ -27,16 +27,8 @@ const boardsSlice = createSlice({
       state,
       action: PayloadAction<{ id: string; name: string }>
     ) => {
-      state.boards = state.boards.map((board: board) => {
-        if (board.id === action.payload.id) {
-          return {
-            ...board,
-            name: action.payload.name,
-          };
-        }
-        return board;
-      });
-
+      // console.log(state)
+      state[action.payload.id].name = action.payload.name;
       localStorage.setItem("boards", JSON.stringify(state));
     },
     updateColumns: (
@@ -56,9 +48,8 @@ const boardsSlice = createSlice({
     },
     // Delete functionalities
     deleteBoard: (state, action: PayloadAction<string>) => {
-      console.log(state.boards, action.payload);
-      state.boards = state.boards.filter((board: board) => board.id !== action.payload);
-      localStorage.setItem("boards", JSON.stringify(state));
+      delete state[action.payload];
+      // localStorage.setItem("boards", JSON.stringify(state));
     },
     deleteColumns: (state, action: PayloadAction<string>) => {
       state.columns = state.columns.filter(
