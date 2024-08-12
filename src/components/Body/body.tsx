@@ -15,18 +15,20 @@ import {
 import AddCardForm from "../CardForm/cardForm";
 import EditForm from "../EditForm/editForm";
 import AddColumn from "../AddColumn/addColumn";
-import { card, column } from "@/types/types";
+import { card, column, InputType } from "@/types/types";
+import InputColor from "../InputColor/InputColor";
 
 export default function Body() {
-  const [colName, setColName] = useState({ value: "", error: "" });
+  const [colName, setColName] = useState<InputType>({ value: "", error: "" });
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
 
-  const colSelector = useAppSelector((state) => state.columns);
-  const cardSelector = useAppSelector((state) => state.cards);
+  const selector = useAppSelector((state) => state.boards);
+  const board = selector[pathname.split("/")[1]];
+  // const cardSelector = useAppSelector((state) => state.cards);
 
   const style = {
-    gridTemplateColumns: `repeat(${colSelector.columns.length}, 34rem)`,
+    gridTemplateColumns: `repeat(${board.columns.length}, 34rem)`,
   };
 
   const handleDeleteColumn = (id: string) => {
@@ -68,7 +70,7 @@ export default function Body() {
       <hr />
 
       <div style={style} className={styles.columns}>
-        {colSelector.columns.map(
+        {board.columns.map(
           (col: column) =>
             pathname.split("/")[1] === col.boardId && (
               <div key={col.id} className={styles.column}>
@@ -123,9 +125,9 @@ export default function Body() {
                   onDrop={(e) => handleOnDrop(e, col.id)}
                   data-col-id={col.id}
                 >
-                  {cardSelector?.cards?.map((card: card, index: number) => {
+                  {col.cards?.map((card: card, index: number) => {
                     return (
-                      card.columnId === col.id && (
+                      col.id === card.columnId && (
                         <Card
                           data-id={card.id}
                           data-col-id={col.id}
@@ -150,8 +152,8 @@ export default function Body() {
                       )
                     );
                   })}
-                  {col.id === colSelector.columns[0].id &&
-                    cardSelector.cards?.length < 5   && (
+                  {/* {col.boardId === board.boards &&
+                    col.id === colSelector.columns[0].id && (
                       <Modal>
                         <Modal.Button className={styles.add_card_btn}>
                           <span className="flex_row flex_center">
@@ -162,7 +164,7 @@ export default function Body() {
                           <AddCardForm colId={col.id} />
                         </Modal.Body>
                       </Modal>
-                    )}
+                    )} */}
                 </div>
               </div>
             )

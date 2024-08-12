@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import boardsReducer from "@/features/board/boardsSlice";
-import cardsReducer from "@/features/cards/cardsSlice";
-import columnsReducer from "@/features/columns/columnsSlice";
+// import cardsReducer from "@/features/cards/cardsSlice";
+// import columnsReducer from "@/features/columns/columnsSlice";
 
 const store = configureStore({
   reducer: {
     boards: boardsReducer,
-    cards: cardsReducer,
-    columns: columnsReducer,
+    // cards: cardsReducer,
+    // columns: columnsReducer,
   },
 });
 

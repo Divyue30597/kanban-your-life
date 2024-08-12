@@ -10,6 +10,7 @@ import { createCards } from "@/features/cards/cardsSlice";
 import Button from "../Button/button";
 import TextInput from "../Input/input";
 import { PLUS } from "../Svg/svg";
+import { card } from "@/types/types";
 
 const MONTHS = [
   "Jan",
@@ -31,6 +32,9 @@ interface CardFormProps {
 }
 
 export default function AddCardForm({ colId }: CardFormProps) {
+  const dispatch = useAppDispatch();
+  const cardSelector = useAppSelector((state) => state.cards);
+  const { pathname } = useLocation();
   const [linkLen, setLinkLen] = useState(1);
   const [formState, setFormState] = useState({
     heading: "",
@@ -39,11 +43,8 @@ export default function AddCardForm({ colId }: CardFormProps) {
     link: Array(linkLen).fill(""),
     date: "",
     storyPoints: 5,
+    index: cardSelector.cards?.length,
   });
-
-  const dispatch = useAppDispatch();
-  const cardSelector = useAppSelector((state) => state.cards);
-  const { pathname } = useLocation();
 
   const handleLinkChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -68,7 +69,6 @@ export default function AddCardForm({ colId }: CardFormProps) {
       columnId: colId,
       boardId: pathname.split("/")[1],
       date: `${dateTime} ${month}`,
-      index: cardSelector.cards?.length,
     };
 
     dispatch(createCards(payload));

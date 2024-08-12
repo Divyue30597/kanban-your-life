@@ -2,16 +2,14 @@ export type column = {
   id: string;
   name: string;
   boardId: string;
-};
-
-export type colName = {
-  value: string;
-  error: string;
+  bgColor: string;
+  cards?: card[];
 };
 
 export type board = {
   id: string;
   name: string;
+  columns?: column[];
 };
 
 export type card = {
@@ -26,4 +24,14 @@ export type card = {
   boardId: string;
   storyPoints: number;
   index: number;
+};
+
+export type colName = {
+  value: string;
+  error: string;
+};
+
+export type InputType = {
+  value: string;
+  error: string;
 };

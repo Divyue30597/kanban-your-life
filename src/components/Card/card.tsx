@@ -36,7 +36,7 @@ function Card({ children, id, index, ...props }: CardProps) {
       startCol.current !==
       (event.currentTarget.parentElement?.dataset.colId as string)
     ) {
-      console.log(event.currentTarget.getBoundingClientRect().toJSON())
+      console.log(event.currentTarget.getBoundingClientRect().toJSON());
 
       event.currentTarget.style.transform = `translateY(${
         event.currentTarget.clientHeight / 10
@@ -58,6 +58,7 @@ function Card({ children, id, index, ...props }: CardProps) {
       onDragOver={(e) => handleDragOver(e)}
       {...props}
     >
+      <p>{index}</p>
       {children}
     </div>
   );

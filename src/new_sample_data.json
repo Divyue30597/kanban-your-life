@@ -1,0 +1,188 @@
+{
+  "board-1": {
+    "id": "board-1",
+    "name": "Project Board",
+    "columns": [
+      {
+        "id": "column-1",
+        "name": "To Do",
+        "boardId": "board-1",
+        "bgColor": "#FF5733",
+        "cards": [
+          {
+            "id": "card-1",
+            "heading": "Setup Project",
+            "description": "Initialize the project repository and setup environment.",
+            "notes": "Remember to create a `.gitignore` file.",
+            "date": "2024-08-12",
+            "link": [
+              "https://github.com"
+            ],
+            "columnId": "column-1",
+            "boardId": "board-1",
+            "storyPoints": 3,
+            "index": 0
+          },
+          {
+            "id": "card-2",
+            "heading": "Design Database Schema",
+            "description": "Design the database schema for the project.",
+            "notes": "Consider using NoSQL for flexibility.",
+            "date": "2024-08-13",
+            "link": [
+              "https://dbdesigner.net"
+            ],
+            "columnId": "column-1",
+            "boardId": "board-1",
+            "storyPoints": 5,
+            "index": 1
+          }
+        ]
+      },
+      {
+        "id": "column-2",
+        "name": "In Progress",
+        "boardId": "board-1",
+        "bgColor": "#33FF57",
+        "cards": [
+          {
+            "id": "card-3",
+            "heading": "Implement Authentication",
+            "description": "Add JWT authentication to the API.",
+            "notes": "Ensure security best practices are followed.",
+            "date": "2024-08-14",
+            "link": [
+              "https://jwt.io"
+            ],
+            "columnId": "column-2",
+            "boardId": "board-1",
+            "storyPoints": 8,
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": "column-3",
+        "name": "Done",
+        "boardId": "board-1",
+        "bgColor": "#3357FF",
+        "cards": [
+          {
+            "id": "card-4",
+            "heading": "Create API Documentation",
+            "description": "Document the API endpoints using Swagger.",
+            "notes": "Make sure all routes are covered.",
+            "date": "2024-08-11",
+            "link": [
+              "https://swagger.io"
+            ],
+            "columnId": "column-3",
+            "boardId": "board-1",
+            "storyPoints": 2,
+            "index": 0
+          }
+        ]
+      }
+    ]
+  },
+  "board-2": {
+    "id": "board-2",
+    "name": "Marketing Campaign",
+    "columns": [
+      {
+        "id": "column-4",
+        "name": "Ideas",
+        "boardId": "board-2",
+        "bgColor": "#FFEB3B",
+        "cards": [
+          {
+            "id": "card-5",
+            "heading": "Social Media Strategy",
+            "description": "Develop a comprehensive social media strategy for the new product launch.",
+            "notes": "Focus on Instagram and LinkedIn.",
+            "date": "2024-08-15",
+            "link": [
+              "https://socialmediaexaminer.com"
+            ],
+            "columnId": "column-4",
+            "boardId": "board-2",
+            "storyPoints": 5,
+            "index": 0
+          },
+          {
+            "id": "card-6",
+            "heading": "Email Campaign",
+            "description": "Create an email marketing campaign targeting existing customers.",
+            "notes": "Segment the audience based on purchase history.",
+            "date": "2024-08-16",
+            "link": [
+              "https://mailchimp.com"
+            ],
+            "columnId": "column-4",
+            "boardId": "board-2",
+            "storyPoints": 4,
+            "index": 1
+          }
+        ]
+      },
+      {
+        "id": "column-5",
+        "name": "In Development",
+        "boardId": "board-2",
+        "bgColor": "#03A9F4",
+        "cards": [
+          {
+            "id": "card-7",
+            "heading": "Landing Page Design",
+            "description": "Design a high-conversion landing page for the campaign.",
+            "notes": "Use A/B testing for optimization.",
+            "date": "2024-08-17",
+            "link": [
+              "https://unbounce.com"
+            ],
+            "columnId": "column-5",
+            "boardId": "board-2",
+            "storyPoints": 7,
+            "index": 0
+          }
+        ]
+      },
+      {
+        "id": "column-6",
+        "name": "Completed",
+        "boardId": "board-2",
+        "bgColor": "#4CAF50",
+        "cards": [
+          {
+            "id": "card-8",
+            "heading": "Content Calendar",
+            "description": "Create a content calendar for the next quarter.",
+            "notes": "Include blog posts, social media, and email content.",
+            "date": "2024-08-10",
+            "link": [
+              "https://coschedule.com"
+            ],
+            "columnId": "column-6",
+            "boardId": "board-2",
+            "storyPoints": 6,
+            "index": 0
+          },
+          {
+            "id": "card-9",
+            "heading": "Brand Guidelines",
+            "description": "Develop brand guidelines to ensure consistent messaging.",
+            "notes": "Include logo usage, typography, and color schemes.",
+            "date": "2024-08-12",
+            "link": [
+              "https://canva.com"
+            ],
+            "columnId": "column-6",
+            "boardId": "board-2",
+            "storyPoints": 3,
+            "index": 1
+          }
+        ]
+      }
+    ]
+  }
+}

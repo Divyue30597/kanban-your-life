@@ -14,7 +14,7 @@ function App() {
       <Navbar />
       <Container className={styles.container}>
         <Sidebar />
-        {boardSelector.boards.length ? (
+        {Object.keys(boardSelector).length ? (
           <Body />
         ) : (
           <div className={styles.no_cols}>

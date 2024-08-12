@@ -7,13 +7,13 @@ import styles from "./sidebar.module.scss";
 
 import Button from "../Button/button";
 import {
-  board,
   createBoards,
   deleteBoard,
   updateBoard,
 } from "@/features/board/boardsSlice";
 import { useAppDispatch, useAppSelector } from "@/store/storeHooks";
 import Dropdown from "../Dropdown/dropdown";
+import { board } from "@/types/types";
 
 export default function Sidebar() {
   const [isActive, setIsActive] = useState(false);
@@ -30,7 +30,6 @@ export default function Sidebar() {
   const selector = useAppSelector((state) => state.boards);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
@@ -41,6 +40,7 @@ export default function Sidebar() {
     const payload = {
       id: uuidv4(),
       name: boardName.name,
+      columns: [],
     };
 
     dispatch(createBoards(payload));
@@ -54,6 +54,7 @@ export default function Sidebar() {
   };
 
   const handleEdit = (id: string, name: string) => {
+    console.log(id);
     if (!name.length) {
       return setBoardName({
         name: "",
@@ -69,22 +70,24 @@ export default function Sidebar() {
       <div>
         <h1>Boards</h1>
         <ul className={styles.boards_list}>
-          {selector.boards.map((board: board) => (
-            <li key={board.id}>
+          {Object.keys(selector).map((board: string) => (
+            <li key={selector[board].id}>
               <Link
-                to={board.id}
+                to={selector[board].id}
                 className={`${
-                  pathname.split("/")[1] === board.id ? styles.active : ""
+                  pathname.split("/")[1] === selector[board].id
+                    ? styles.active
+                    : ""
                 }`}
               >
-                <span>{board.name}</span>
+                <span>{selector[board].name}</span>
               </Link>
 
               <Dropdown className={styles.dropdown} buttonInternal={<DOTS />}>
                 <div className={styles.dropdown_settings}>
                   <input
                     type="text"
-                    placeholder={board.name}
+                    placeholder={selector[board].name}
                     value={boardName.name}
                     onChange={(e) => {
                       setBoardName({
@@ -97,15 +100,17 @@ export default function Sidebar() {
                     <Button
                       className={styles.edit_button}
                       type="button"
-                      onClick={() => handleEdit(board.id, boardName.name)}
+                      onClick={() =>
+                        handleEdit(selector[board].id, boardName.name)
+                      }
                     >
                       <EDIT />
                     </Button>
                     <Button
                       className={styles.delete_button}
                       type="button"
-                      onClick={() => handleDelete(board.id)}
-                      disabled={pathname.split("/")[1] === board.id}
+                      onClick={() => handleDelete(selector[board].id)}
+                      disabled={pathname.split("/")[1] === selector[board].id}
                     >
                       <DELETE />
                     </Button>
