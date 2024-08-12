@@ -13,7 +13,6 @@ import {
 } from "@/features/board/boardsSlice";
 import { useAppDispatch, useAppSelector } from "@/store/storeHooks";
 import Dropdown from "../Dropdown/dropdown";
-import { board } from "@/types/types";
 
 export default function Sidebar() {
   const [isActive, setIsActive] = useState(false);
@@ -30,8 +29,6 @@ export default function Sidebar() {
   const selector = useAppSelector((state) => state.boards);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-
-  console.log(selector);
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 

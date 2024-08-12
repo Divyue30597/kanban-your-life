@@ -6,7 +6,6 @@ import { DELETE, EDIT, PLUS } from "../Svg/svg";
 import Card from "../Card/card";
 import Modal from "../Modal/modal";
 import { useAppDispatch, useAppSelector } from "@/store/storeHooks";
-import { deleteColumns } from "@/features/columns/columnsSlice";
 import {
   deleteColumnsWithCards,
   updateCardColumn,
@@ -14,6 +13,7 @@ import {
 import EditForm from "../EditForm/editForm";
 import AddColumn from "../AddColumn/addColumn";
 import { card, column, InputType } from "@/types/types";
+import { deleteColumns } from "@/features/board/boardsSlice";
 
 export default function Body() {
   const [colName, setColName] = useState<InputType>({ value: "", error: "" });
@@ -22,16 +22,13 @@ export default function Body() {
 
   const selector = useAppSelector((state) => state.boards);
   const board = selector[pathname.split("/")[1]];
-  console.log(board)
-  // const cardSelector = useAppSelector((state) => state.cards);
 
   const style = {
     gridTemplateColumns: `repeat(${board.columns.length}, 34rem)`,
   };
 
   const handleDeleteColumn = (id: string) => {
-    dispatch(deleteColumns(id));
-    dispatch(deleteColumnsWithCards(id));
+    dispatch(deleteColumns({ id: id, boardId: pathname.split("/")[1] }));
   };
 
   const handleOnDragOver = (event: DragEvent<HTMLDivElement>) => {

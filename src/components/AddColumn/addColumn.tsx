@@ -27,7 +27,6 @@ export default function AddColumn({
       boardId: pathname.split("/")[1],
       bgColor: "",
     };
-    console.log(newColumn);
     dispatch(createColumns(newColumn));
   };
 

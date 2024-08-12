@@ -11,16 +11,12 @@ const boardsSlice = createSlice({
   reducers: {
     // Create functionalities
     createBoards: (state, action: PayloadAction<board>) => {
-      state.boards.push(action.payload);
+      state[action.payload.id] = action.payload;
       localStorage.setItem("boards", JSON.stringify(state));
     },
     createColumns: (state, action: PayloadAction<column>) => {
-      console.log(state, action.payload);
-
-      if (action.payload.boardId === state.id) {
-        state.boards.columns.push(action.payload);
-        localStorage.setItem("boards", JSON.stringify(state));
-      }
+      state[action.payload.boardId].columns.push(action.payload);
+      localStorage.setItem("boards", JSON.stringify(state));
     },
     // Update functionalities
     updateBoard: (
@@ -33,16 +29,24 @@ const boardsSlice = createSlice({
     },
     updateColumns: (
       state,
-      action: PayloadAction<{ id: string; name: string; color: string }>
+      action: PayloadAction<{
+        id: string;
+        name: string;
+        // color: string;
+        boardId: string;
+      }>
     ) => {
-      state.boards.column = state.boards.column.map((col: column) => {
-        if (col.id === action.payload.id) {
+      state[action.payload.boardId].columns = state[
+        action.payload.boardId
+      ].columns.map((col: column) => {
+        if (action.payload.id === col.id) {
           return {
             ...col,
             name: action.payload.name,
-            color: action.payload.color,
+            // color: action.payload.color,
           };
         }
+        return col;
       });
       localStorage.setItem("boards", JSON.stringify(state));
     },
@@ -51,11 +55,14 @@ const boardsSlice = createSlice({
       delete state[action.payload];
       // localStorage.setItem("boards", JSON.stringify(state));
     },
-    deleteColumns: (state, action: PayloadAction<string>) => {
-      state.columns = state.columns.filter(
-        (column: column) => column.id !== action.payload
-      );
-      localStorage.setItem("boards", JSON.stringify(state));
+    deleteColumns: (
+      state,
+      action: PayloadAction<{ id: string; boardId: string }>
+    ) => {
+      state[action.payload.boardId].columns = state[
+        action.payload.boardId
+      ].columns.filter((col: column) => col.id !== action.payload.id);
+      // localStorage.setItem("boards", JSON.stringify(state));
     },
   },
 });

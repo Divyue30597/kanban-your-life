@@ -2,10 +2,11 @@ import { ChangeEvent, FormEvent } from "react";
 
 import styles from "@/components/EditForm/editForm.module.scss";
 
-import { updateColumns } from "@/features/columns/columnsSlice";
 import Button from "../Button/button";
 import { useAppDispatch } from "@/store/storeHooks";
 import { colName, column } from "@/types/types";
+import { useLocation } from "react-router-dom";
+import { updateColumns } from "@/features/board/boardsSlice";
 
 export default function EditForm({
   col,
@@ -17,7 +18,8 @@ export default function EditForm({
   setColName: React.Dispatch<React.SetStateAction<colName>>;
 }) {
   const dispatch = useAppDispatch();
-
+  const { pathname } = useLocation();
+  const boardId = pathname.split("/")[1];
   const handleEditColumn = (
     e: FormEvent,
     id: string,
@@ -31,11 +33,28 @@ export default function EditForm({
       });
     }
 
-    dispatch(updateColumns({ id, name: col.value }));
+    dispatch(updateColumns({ id, name: col.value, boardId }));
   };
 
   return (
     <form onSubmit={(e) => handleEditColumn(e, col.id, colName)}>
+      {/* <div className={`${styles.edit_col_input} flex_col`}>
+        <label htmlFor="edit-column-bgcolor">Edit Column Color</label>
+        <input
+          id="edit-column-bgcolor"
+          name="edit-column-bgcolor"
+          type="text"
+          required
+          placeholder={col.name}
+          value={colName.value}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setColName({
+              error: "",
+              value: e.target.value,
+            })
+          }
+        />
+      </div> */}
       <div className={`${styles.edit_col_input} flex_col`}>
         <label htmlFor="edit-column-name">Edit Column Name</label>
         <input
