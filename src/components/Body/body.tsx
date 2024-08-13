@@ -2,18 +2,16 @@ import { DragEvent, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./body.module.scss";
 import Button from "../Button/button";
-import { DELETE, EDIT, PLUS } from "../Svg/svg";
+import { ADD_TASK, DELETE, EDIT, PLUS } from "../Svg/svg";
 import Card from "../Card/card";
 import Modal from "../Modal/modal";
 import { useAppDispatch, useAppSelector } from "@/store/storeHooks";
-import {
-  deleteColumnsWithCards,
-  updateCardColumn,
-} from "@/features/cards/cardsSlice";
+import { updateCardColumn } from "@/features/cards/cardsSlice";
 import EditForm from "../EditForm/editForm";
 import AddColumn from "../AddColumn/addColumn";
 import { card, column, InputType } from "@/types/types";
 import { deleteColumns } from "@/features/board/boardsSlice";
+import AddCardForm from "../CardForm/cardForm";
 
 export default function Body() {
   const [colName, setColName] = useState<InputType>({ value: "", error: "" });
@@ -24,7 +22,7 @@ export default function Body() {
   const board = selector[pathname.split("/")[1]];
 
   const style = {
-    gridTemplateColumns: `repeat(${board.columns.length}, 34rem)`,
+    gridTemplateColumns: `repeat(${board?.columns.length}, 34rem)`,
   };
 
   const handleDeleteColumn = (id: string) => {
@@ -38,15 +36,10 @@ export default function Body() {
   const handleOnDrop = (event: DragEvent<HTMLDivElement>, newColId: string) => {
     event.preventDefault();
     const cardId = event.dataTransfer.getData("text/plain");
-    // const index = Number(event.dataTransfer.getData("index/plain"));
-    // const newItems = [...cardSelector.cards];
-    // console.log(newItems);
-    // const [draggedItem] = newItems.splice(index, 1);
-    // console.log(draggedItem);
-    // newItems.splice(index, 0, draggedItem);
-    // dispatch(updateCards({ cards: newItems }));
     dispatch(updateCardColumn({ id: cardId, columnId: newColId }));
   };
+
+  console.log(board);
 
   return (
     <div className={styles.body}>
@@ -65,8 +58,8 @@ export default function Body() {
       <hr />
 
       <div style={style} className={styles.columns}>
-        {board.columns.map(
-          (col: column) =>
+        {board?.columns.map(
+          (col: column, index: number) =>
             pathname.split("/")[1] === col.boardId && (
               <div key={col.id} className={styles.column}>
                 <div className={styles.column_heading}>
@@ -145,19 +138,18 @@ export default function Body() {
                       </Card>
                     );
                   })}
-                  {/* {col.boardId === board.boards &&
-                    col.id === colSelector.columns[0].id && (
-                      <Modal>
-                        <Modal.Button className={styles.add_card_btn}>
-                          <span className="flex_row flex_center">
-                            <ADD_TASK /> Add Card
-                          </span>
-                        </Modal.Button>
-                        <Modal.Body heading="Add Card">
-                          <AddCardForm colId={col.id} />
-                        </Modal.Body>
-                      </Modal>
-                    )} */}
+                  {index === 0 && (
+                    <Modal>
+                      <Modal.Button className={styles.add_card_btn}>
+                        <span className="flex_row flex_center">
+                          <ADD_TASK /> Add Card
+                        </span>
+                      </Modal.Button>
+                      <Modal.Body heading="Add Card">
+                        <AddCardForm col={col} />
+                      </Modal.Body>
+                    </Modal>
+                  )}
                 </div>
               </div>
             )

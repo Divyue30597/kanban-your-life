@@ -1,4 +1,4 @@
-import { board, column } from "@/types/types";
+import { board, card, column } from "@/types/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = { boards: [] };
@@ -16,6 +16,10 @@ const boardsSlice = createSlice({
     },
     createColumns: (state, action: PayloadAction<column>) => {
       state[action.payload.boardId].columns.push(action.payload);
+      localStorage.setItem("boards", JSON.stringify(state));
+    },
+    createCard: (state, action: PayloadAction<card>) => {
+      state[action.payload.boardId].columns[0].cards.push(action.payload);
       localStorage.setItem("boards", JSON.stringify(state));
     },
     // Update functionalities
@@ -53,7 +57,7 @@ const boardsSlice = createSlice({
     // Delete functionalities
     deleteBoard: (state, action: PayloadAction<string>) => {
       delete state[action.payload];
-      // localStorage.setItem("boards", JSON.stringify(state));
+      localStorage.setItem("boards", JSON.stringify(state));
     },
     deleteColumns: (
       state,
@@ -62,7 +66,7 @@ const boardsSlice = createSlice({
       state[action.payload.boardId].columns = state[
         action.payload.boardId
       ].columns.filter((col: column) => col.id !== action.payload.id);
-      // localStorage.setItem("boards", JSON.stringify(state));
+      localStorage.setItem("boards", JSON.stringify(state));
     },
   },
 });
@@ -70,6 +74,7 @@ const boardsSlice = createSlice({
 export const {
   createBoards,
   createColumns,
+  createCard,
   updateBoard,
   updateColumns,
   deleteBoard,

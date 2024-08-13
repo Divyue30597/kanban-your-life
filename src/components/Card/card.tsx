@@ -58,7 +58,6 @@ function Card({ children, id, index, ...props }: CardProps) {
       onDragOver={(e) => handleDragOver(e)}
       {...props}
     >
-      <p>{index}</p>
       {children}
     </div>
   );

@@ -4,13 +4,13 @@ import { useLocation } from "react-router-dom";
 
 import styles from "./cardForm.module.scss";
 
-import { useAppDispatch, useAppSelector } from "@/store/storeHooks";
-import { createCards } from "@/features/cards/cardsSlice";
+import { useAppDispatch } from "@/store/storeHooks";
 
 import Button from "../Button/button";
 import TextInput from "../Input/input";
 import { PLUS } from "../Svg/svg";
-import { card } from "@/types/types";
+import { column } from "@/types/types";
+import { createCard } from "@/features/board/boardsSlice";
 
 const MONTHS = [
   "Jan",
@@ -27,13 +27,12 @@ const MONTHS = [
   "Dec",
 ];
 
-interface CardFormProps {
-  colId: string;
-}
+type CardFormProps = {
+  col: column;
+};
 
-export default function AddCardForm({ colId }: CardFormProps) {
+export default function AddCardForm({ col }: CardFormProps) {
   const dispatch = useAppDispatch();
-  const cardSelector = useAppSelector((state) => state.cards);
   const { pathname } = useLocation();
   const [linkLen, setLinkLen] = useState(1);
   const [formState, setFormState] = useState({
@@ -43,7 +42,7 @@ export default function AddCardForm({ colId }: CardFormProps) {
     link: Array(linkLen).fill(""),
     date: "",
     storyPoints: 5,
-    index: cardSelector.cards?.length,
+    index: col.cards?.length || 0,
   });
 
   const handleLinkChange = (
@@ -66,12 +65,12 @@ export default function AddCardForm({ colId }: CardFormProps) {
     const payload = {
       id: uuid(),
       ...formState,
-      columnId: colId,
+      columnId: col.id,
       boardId: pathname.split("/")[1],
       date: `${dateTime} ${month}`,
     };
 
-    dispatch(createCards(payload));
+    dispatch(createCard(payload));
   };
 
   return (
