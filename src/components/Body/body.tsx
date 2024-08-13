@@ -39,8 +39,6 @@ export default function Body() {
     dispatch(updateCardColumn({ id: cardId, columnId: newColId }));
   };
 
-  console.log(board);
-
   return (
     <div className={styles.body}>
       <div className={styles.body_heading}>

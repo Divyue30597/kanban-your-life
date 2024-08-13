@@ -5,13 +5,15 @@ import Sidebar from "./components/Sidebar/sidebar";
 import Body from "./components/Body/body";
 import { useAppSelector } from "./store/storeHooks";
 import image from "/styles/images/start_your_journey.svg";
+import Calendar from "./components/Calendar/Calendar";
 
 function App() {
   const boardSelector = useAppSelector((state) => state.boards);
 
   return (
-    <>
+    <div>
       <Navbar />
+      <Calendar />
       <Container className={styles.container}>
         <Sidebar />
         {Object.keys(boardSelector).length ? (
@@ -23,7 +25,7 @@ function App() {
           </div>
         )}
       </Container>
-    </>
+    </div>
   );
 }
 
