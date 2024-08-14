@@ -26,6 +26,12 @@ export type card = {
   index: number;
 };
 
+export type date = {
+  date: number;
+  weekday: number;
+  achievedTarget: boolean;
+};
+
 export type colName = {
   value: string;
   error: string;
