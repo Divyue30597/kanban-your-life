@@ -1,5 +1,6 @@
 import styles from "@/components/Calendar/calendar.module.scss";
-import { WEEKDAY } from "@/constant/constant";
+import { MONTHS, WEEKDAY } from "@/constant/constant";
+import { CORRECT, WRONG } from "../Svg/svg";
 
 export default function Calendar() {
   const currentDate = new Date();
@@ -19,16 +20,26 @@ export default function Calendar() {
 
   return (
     <div className={styles.calendar}>
+      <p className={styles.month} key={month}>
+        {MONTHS[month]
+          .toLocaleUpperCase()
+          .split("")
+          .map((letter) => {
+            return <span key={letter}>{letter}</span>;
+          })}
+      </p>
       {daysWithWeekday.map((day) => {
         return (
           <div
             className={styles.day}
             style={{
-              backgroundColor: todayDate === day.date ? "#41B06E" : "",
+              backgroundColor: todayDate === day.date ? "#41B06E" : "#d9efe2",
               color: todayDate === day.date ? "#fff" : "",
             }}
             key={day.date}
           >
+            <CORRECT />
+            <WRONG />
             <p>{WEEKDAY[day.weekday]}</p>
             <p className={styles.date}>{day.date}</p>
           </div>
