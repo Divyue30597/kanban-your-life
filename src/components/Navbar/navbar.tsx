@@ -34,7 +34,7 @@ export default function Navbar() {
       <h1>Kanban Your Life</h1>
       <div className={styles.stats}>
         <label>
-          Target Achieved today?
+          Goals crushed today?
           <input
             type="checkbox"
             checked={todaysTarget[0].achievedTarget}

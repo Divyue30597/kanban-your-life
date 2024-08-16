@@ -54,6 +54,67 @@ const boardsSlice = createSlice({
       });
       localStorage.setItem("boards", JSON.stringify(state));
     },
+    updateCard: (
+      state,
+      action: PayloadAction<{ id: string; updatedCard: card }>
+    ) => {
+      state[action.payload.updatedCard.boardId].columns = state[
+        action.payload.updatedCard.boardId
+      ].columns.map((col: column) => {
+        if (
+          col.id === action.payload.updatedCard.columnId &&
+          col.cards !== undefined &&
+          col.cards.length !== 0
+        ) {
+          col.cards = col.cards.map((card: card) => {
+            if (card.id === action.payload.id) {
+              return {
+                ...card,
+                ...action.payload,
+              };
+            }
+            return card;
+          });
+        }
+
+        return col;
+      });
+
+      localStorage.setItem("boards", JSON.stringify(state));
+    },
+
+    updateCardColumn: (
+      state,
+      action: PayloadAction<{ id: string; colId: string; boardId: string }>
+    ) => {
+      const { id, colId, boardId } = action.payload;
+
+      // Find the board
+      const board = state[boardId];
+
+      // Find and remove the card from its current column
+      let movedCard: card | undefined;
+      board.columns = board.columns.map((col: column) => {
+        const cardIndex = col.cards?.findIndex((card: card) => card.id === id);
+        if (cardIndex !== undefined && cardIndex > -1) {
+          movedCard = col.cards?.splice(cardIndex, 1)[0];
+        }
+        return col;
+      });
+
+      // Update the card's columnId and add it to the new column
+      if (movedCard) {
+        movedCard.columnId = colId;
+        board.columns = board.columns.map((col: column) => {
+          if (col.id === colId) {
+            col.cards?.push(movedCard!);
+          }
+          return col;
+        });
+      }
+
+      localStorage.setItem("boards", JSON.stringify(state));
+    },
     // Delete functionalities
     deleteBoard: (state, action: PayloadAction<string>) => {
       delete state[action.payload];
@@ -66,7 +127,7 @@ const boardsSlice = createSlice({
       state[action.payload.boardId].columns = state[
         action.payload.boardId
       ].columns.filter((col: column) => col.id !== action.payload.id);
-      localStorage.setItem("boards", JSON.stringify(state));
+      // localStorage.setItem("boards", JSON.stringify(state));
     },
   },
 });
@@ -77,6 +138,8 @@ export const {
   createCard,
   updateBoard,
   updateColumns,
+  updateCard,
+  updateCardColumn,
   deleteBoard,
   deleteColumns,
 } = boardsSlice.actions;

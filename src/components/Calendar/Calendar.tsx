@@ -3,6 +3,7 @@ import { MONTHS, WEEKDAY } from "@/constant/constant";
 import { CORRECT, WRONG } from "../Svg/svg";
 import { useAppSelector } from "@/store/storeHooks";
 import { date } from "@/types/types";
+import ConfettiExplosion from "react-confetti-explosion";
 
 export default function Calendar() {
   const currentDate = new Date();
@@ -33,7 +34,10 @@ export default function Calendar() {
           >
             <div className={styles.target}>
               {day.achievedTarget && day.date <= todayDate ? (
-                <CORRECT />
+                <>
+                  <CORRECT />
+                  <ConfettiExplosion />
+                </>
               ) : day.date >= todayDate ? (
                 ""
               ) : (
