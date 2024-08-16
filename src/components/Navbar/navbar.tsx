@@ -3,6 +3,7 @@ import styles from "./navbar.module.scss";
 import { useAppDispatch, useAppSelector } from "@/store/storeHooks";
 import { updateAchievedTarget } from "@/features/dates/datesSlice";
 import { date } from "@/types/types";
+import StopWatch from "../Stopwatch/Stopwatch";
 
 export default function Navbar() {
   const date = new Date();
@@ -32,6 +33,9 @@ export default function Navbar() {
   return (
     <div className={styles.nav}>
       <h1>Kanban Your Life</h1>
+      <div>
+        <StopWatch />
+      </div>
       <div className={styles.stats}>
         <label>
           Goals crushed today?

@@ -2,10 +2,11 @@ import { ChangeEvent, DragEvent, HTMLProps, useRef, useState } from "react";
 
 import Badge from "../Badge/badge";
 import styles from "./card.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { CALENDAR, CLOCK, LINK } from "../Svg/svg";
 import { useAppDispatch } from "@/store/storeHooks";
 import { updateNotesByCardId } from "@/features/cards/cardsSlice";
+import { updateCardNotes } from "@/features/board/boardsSlice";
 
 interface CardProps extends HTMLProps<HTMLDivElement> {
   id: string;
@@ -96,8 +97,18 @@ function CardHeader({
   );
 }
 
-function CardNotes({ notes, id }: { notes: string; id: string }) {
+function CardNotes({
+  notes,
+  id,
+  colId,
+}: {
+  notes: string;
+  id: string;
+  colId: string;
+}) {
   const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
+  const boardId = pathname.split("/")[1];
   const [notesValue, setNotesValue] = useState({ value: notes, error: "" });
 
   const handleNotesChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -110,7 +121,7 @@ function CardNotes({ notes, id }: { notes: string; id: string }) {
     });
 
     if (newValue.length !== 0) {
-      dispatch(updateNotesByCardId({ id, notes: newValue }));
+      dispatch(updateCardNotes({ id, colId, boardId, notes: newValue }));
     }
   };
 

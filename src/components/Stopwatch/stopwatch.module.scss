@@ -1,0 +1,65 @@
+.stopwatch {
+  gap: 0.8rem;
+
+  & > p {
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+
+  & > button {
+    font-size: var(--icon-size);
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+
+  & > .increase_btn,
+  .decrease_btn {
+    border-radius: 0.4rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  & > .increase_btn {
+    background-color: var(--success-color);
+    border: 0.2rem solid var(--success-color);
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: var(--success-color-50);
+    }
+
+    &:disabled {
+      background-color: var(--success-color);
+      cursor: default;
+    }
+  }
+
+  & > .decrease_btn {
+    background-color: var(--danger-color);
+    border: 0.2rem solid var(--danger-color);
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: var(--danger-color-50);
+    }
+
+    &:disabled {
+      background-color: var(--danger-color);
+      cursor: default;
+    }
+  }
+
+  & > .stopwatch_start,
+  .stopwatch_reset {
+    border-radius: 0.4rem;
+    padding: 0.2rem;
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+}

@@ -35,7 +35,7 @@ export default function Body() {
   const handleOnDrop = (event: DragEvent<HTMLDivElement>, newColId: string) => {
     event.preventDefault();
     const cardId = event.dataTransfer.getData("text/plain");
-    console.log(cardId, "cardId")
+    console.log(cardId, "cardId");
     dispatch(
       updateCardColumn({ id: cardId, colId: newColId, boardId: board.id })
     );
@@ -132,7 +132,11 @@ export default function Body() {
                             description={card.description}
                           />
                           <Card.CardLink links={card.link} />
-                          <Card.CardNotes notes={card.notes} id={card.id} />
+                          <Card.CardNotes
+                            notes={card.notes}
+                            id={card.id}
+                            colId={col.id}
+                          />
                           <hr />
                           <Card.CardFooter
                             date={card.date}

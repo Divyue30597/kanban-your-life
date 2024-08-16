@@ -71,7 +71,7 @@ export default function Sidebar() {
         <ul className={styles.boards_list}>
           {Object.keys(selector).map((board: string) => (
             <li key={selector[board].id}>
-              <Link
+            <Link
                 to={selector[board].id}
                 className={`${
                   pathname.split("/")[1] === selector[board].id

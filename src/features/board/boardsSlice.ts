@@ -54,35 +54,6 @@ const boardsSlice = createSlice({
       });
       localStorage.setItem("boards", JSON.stringify(state));
     },
-    updateCard: (
-      state,
-      action: PayloadAction<{ id: string; updatedCard: card }>
-    ) => {
-      state[action.payload.updatedCard.boardId].columns = state[
-        action.payload.updatedCard.boardId
-      ].columns.map((col: column) => {
-        if (
-          col.id === action.payload.updatedCard.columnId &&
-          col.cards !== undefined &&
-          col.cards.length !== 0
-        ) {
-          col.cards = col.cards.map((card: card) => {
-            if (card.id === action.payload.id) {
-              return {
-                ...card,
-                ...action.payload,
-              };
-            }
-            return card;
-          });
-        }
-
-        return col;
-      });
-
-      localStorage.setItem("boards", JSON.stringify(state));
-    },
-
     updateCardColumn: (
       state,
       action: PayloadAction<{ id: string; colId: string; boardId: string }>
@@ -115,6 +86,31 @@ const boardsSlice = createSlice({
 
       localStorage.setItem("boards", JSON.stringify(state));
     },
+    updateCardNotes: (
+      state,
+      action: PayloadAction<{
+        id: string;
+        colId: string;
+        boardId: string;
+        notes: string;
+      }>
+    ) => {
+      const { id, colId, boardId, notes } = action.payload;
+
+      state[boardId].columns = state[boardId].columns.map((col: column) => {
+        if (col.id === colId) {
+          col.cards = col.cards?.map((card: card) => {
+            if (card.id === id) {
+              card.notes = notes;
+            }
+            return card;
+          });
+        }
+        return col;
+      });
+
+      localStorage.setItem("boards", JSON.stringify(state));
+    },
     // Delete functionalities
     deleteBoard: (state, action: PayloadAction<string>) => {
       delete state[action.payload];
@@ -138,7 +134,7 @@ export const {
   createCard,
   updateBoard,
   updateColumns,
-  updateCard,
+  updateCardNotes,
   updateCardColumn,
   deleteBoard,
   deleteColumns,
